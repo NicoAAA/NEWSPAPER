@@ -1,0 +1,23 @@
+# Entornos virtuales
+venv/
+ENV/
+env/
+*.pyc
+__pycache__/
+
+# Migraciones de Django
+**/migrations/
+
+# Archivos de configuración de tu IDE (opcional, pero recomendado)
+.vscode/
+.idea/
+
+# Archivos estáticos compilados
+staticfiles/
+
+# Archivos de base de datos locales
+*.sqlite3
+
+# Otros archivos que no quieras subir
+.DS_Store
+*.log
