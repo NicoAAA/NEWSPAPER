@@ -1,0 +1,53 @@
+{% extends "base.html" %}
+
+{% comment %} 
+
+SENA CBA CENTRO DE BIOTECNOLOGIA AGROPECUARIA
+PROGRAMACION DE SOFTWARE
+
+FICHA: 2877795
+AUTOR: NICOLAS ANDRES ACOSTA HIGUERA
+PROYECTO: NEWSPAPER (templates\article_list.html)
+FECHA: 29/10/2024
+VERSION: 1.0
+
+{% endcomment %}
+
+<!--  templates\article_list.html -->
+
+{% block title %}Article List{% endblock title %}
+
+{% block content %}
+
+    {% for  article in article_list %}
+        <div class="card">
+            <div class="card-header">
+                <spam class="fond-weight-bold">
+                    {{ article.title }}
+                </spam> &middot;
+                <spam class="text-muted">by {{ article.author }} | 
+                    {{ article.date }}
+                </spam>        
+            </div>
+            <div class="card-body">
+                <p>{{ article.body }}</p>
+                <a href="{% url 'article_edit' article.pk %}">Edit</a> | 
+                <a href="{% url 'article_delete' article.pk %}">Delete</a>
+            </div>
+            <div class="card-footer">
+                
+                {% for comment in article.comment_set.all %}
+                    <p>
+                        <spam class="font-weight-bold">
+                            {{ comment.author }} &middot;
+                        </spam>
+                        {{ comment }}
+                    </p>
+                {% endfor %}     
+            </div>
+        </div>
+        <br />
+    {% endfor %}
+
+{% endblock content %}
+    

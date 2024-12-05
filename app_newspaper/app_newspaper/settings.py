@@ -121,13 +121,13 @@ AUTH_PASSWORD_VALIDATORS = [
 # Internationalization
 # https://docs.djangoproject.com/en/5.1/topics/i18n/
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'es-co' # Definimos el código de idioma como español de Colombia
 
-TIME_ZONE = 'UTC'
+TIME_ZONE = 'America/Bogota' # Definimos la zona horaria como América/Bogotá
 
-USE_I18N = True
+USE_I18N = True # Habilitamos la internacionalización
 
-USE_TZ = True
+USE_TZ = True # Habilitamos el uso de la zona horaria
 
 
 # Static files (CSS, JavaScript, Images)
@@ -148,12 +148,3 @@ CRISPY_ALLOWED_TEMPLATE_PACKS = 'bootstrap5' # Definimos el paquete de plantilla
 CRISPY_TEMPLATE_PACK = 'bootstrap5' # Definimos el paquete de plantillas para Crispy Forms
 
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Definimos la consola como backend de correo electrónico
-
-
-USE_I18N = True # Habilitamos la internacionalización
-
-LANGUAGE_CODE = 'es-co' # Definimos el código de idioma
-
-USE_TZ = True # Habilitamos la zona horaria
-
-TIME_ZONE = 'America/Bogota' # Definimos la zona horaria
