@@ -18,9 +18,19 @@ from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from django.urls import reverse_lazy, reverse
 from .models import Article
 from .forms import CommentForm
-
+from .models import Comment
 
 # Create your views here.
+
+class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
+    model = Comment
+    fields = ['comment']  # Solo permitimos editar el texto del comentario
+    template_name = 'comment_edit.html'
+    success_url = reverse_lazy('article_list')  # Redirigir después de la edición
+
+    def test_func(self):
+        comment = self.get_object()
+        return self.request.user == comment.author  # Permitir solo si es el autor
 
 class CommentGet(LoginRequiredMixin, DetailView):
     model = Article

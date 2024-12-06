@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% comment %} 
+
+SENA CBA CENTRO DE BIOTECNOLOGIA AGROPECUARIA
+PROGRAMACION DE SOFTWARE
+
+FICHA: 2877795
+AUTOR: NICOLAS ANDRES ACOSTA HIGUERA
+PROYECTO: NEWSPAPER (templates/comment_edit.html)
+FECHA: 29/09/2024
+VERSION: 1.0
+
+{% endcomment %}
+
+{% block content %}
+  <h2>Edit Comment</h2>
+  <form method="post">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit" class="btn btn-primary">Save Changes</button>
+  </form>
+  <a href="{% url 'article_detail' object.article.pk %}">Cancel</a>
+{% endblock %}

@@ -26,6 +26,9 @@ VERSION: 1.0
     <h4>Comments</h4>
     {% for comment in article.comment_set.all %}
         <p>{{ comment.author }} &middot; {{ comment }}</p>
+        {% if comment.author == request.user %}
+            <a href="{% url 'comment_edit' comment.pk %}">Edit</a>
+        {% endif %}
     {% endfor %}
     <hr>
     <h4>Add a Comment</h4>
@@ -41,4 +44,3 @@ VERSION: 1.0
     <p>Back to <a href="{% url 'article_list' %}">All Articles</a>.</p>    
 {% endblock content %}
     
-<a href="{% url 'article_detail' article.pk %}">Edit</a>
