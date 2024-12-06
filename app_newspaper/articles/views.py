@@ -22,7 +22,7 @@ from .forms import CommentForm
 
 # Create your views here.
 
-class CommentGet(LoginRequiredMixin, DeleteView):
+class CommentGet(LoginRequiredMixin, DetailView):
     model = Article
     template_name= "article_detail.html"
     
@@ -44,7 +44,8 @@ class CommentPost (SingleObjectMixin, FormView):
     
     def form_valid(self, form):
         comment= form.save(commit=False)
-        comment.article = self.object
+        comment.article = self.get_object()
+        comment.author = self.request.user
         comment.save()
         return super().form_valid(form)
     
