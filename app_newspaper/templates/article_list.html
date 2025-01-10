@@ -33,6 +33,9 @@ VERSION: 1.0
                 </div>
             </div>
             <div class="card-body">
+                {% if article.image %}
+                    <img src="{{ article.image.url }}" alt="{{ article.title }}" class="img-fluid mb-3">
+                {% endif %}
                 <p>{{ article.body }}</p>
             </div>
             <div class="card-footer bg-light">

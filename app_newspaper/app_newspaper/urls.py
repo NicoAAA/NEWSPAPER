@@ -26,15 +26,26 @@ FECHA: 29/09/2024
 VERSION: 1.0
 '''
 
-
+# Importacion de la clase admin para registrar los modelos en el panel de administracion
 from django.contrib import admin
+
+# Importacion de la funcion path para definir las rutas de la aplicacion y 
+# la funcion include para incluir las rutas de la aplicacion accounts
 from django.urls import path, include
+
+# Importacion de la clase TemplateView para renderizar la pagina principal
 from django.views.generic.base import TemplateView
+
+from django.conf import settings
+from django.conf.urls.static import static
 
 urlpatterns = [
     path('admin/', admin.site.urls),
     path('accounts/', include('accounts.urls')),
     path('accounts/', include('django.contrib.auth.urls')),
     path('articles/', include('articles.urls')),
+    path('',include('pages.urls')),
     path('', TemplateView.as_view(template_name='home.html'),name='home'),
 ]
+if settings.DEBUG:
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)

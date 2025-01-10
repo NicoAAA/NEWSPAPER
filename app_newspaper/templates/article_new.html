@@ -17,7 +17,7 @@ VERSION: 1.0
 
 {% block content %}
     <h1>New Article</h1>
-    <form action="" method="post">
+    <form action="" method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form|crispy }}
         <button class="btn btn-success ml-2" type="submit">Save</button>

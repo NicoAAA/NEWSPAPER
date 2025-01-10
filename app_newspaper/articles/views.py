@@ -107,9 +107,8 @@ class ArticleUpdateView(LoginRequiredMixin,UserPassesTestMixin, UpdateView):
 class ArticleCreateView(LoginRequiredMixin,CreateView):
     model = Article
     template_name = "article_new.html"
-    fields = ("title", "body")
-    template= "article_new.html"
-
+    fields = ("title", "body", "image")
+    
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)

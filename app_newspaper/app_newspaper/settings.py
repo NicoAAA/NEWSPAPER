@@ -23,7 +23,7 @@ VERSION: 1.0
 
 
 from pathlib import Path
-import os
+
 
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -151,4 +151,4 @@ CRISPY_TEMPLATE_PACK = 'bootstrap5' # Definimos el paquete de plantillas para Cr
 EMAIL_BACKEND = 'django.core.mail.backends.console.EmailBackend' # Definimos la consola como backend de correo electrónico
 
 MEDIA_URL = '/media/'
-MEDIA_ROOT = os.path.join(BASE_DIR, 'media')
+MEDIA_ROOT = BASE_DIR / 'media'
