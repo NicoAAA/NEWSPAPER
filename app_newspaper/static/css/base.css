@@ -1,0 +1,559 @@
+/*----------> Fuentes CSS */
+@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@500&display=swap');
+
+/*----------> Variables CSS */
+
+/* Variables de colores */
+:root{
+
+    --color-de-fondo: rgb(220, 215, 190, 1);
+    --color-de-contenido: rgb(220, 215, 190, 1);
+    --color-barra-lateral: rgb(255,255,255);
+
+    --color-texto: rgb(0,0,0);
+    --color-texto-menu: rgb(134,136,144);
+
+    --color-menu-hover:rgb(238,238,238);
+    --color-menu-hover-texto:rgb(0,0,0);
+
+    --color-boton: rgb(0,0,0);
+    --color-boton-texto:rgb(255,255,255);
+
+    --color-linea: rgb(180, 180, 180);
+
+    --color-switch-base: rgb(201,202,206);
+    --color-switch-circulo: rgb(241,241,241);
+
+    --color-scroll: rgb(192,192,192);
+    --color-scroll-hover: rgb(134,134,134);
+
+    --color-serch-input: rgb(255,255,255 ) ;
+    --color-serch-lupa: rgb(0,0,0);
+    --color-serch-x: rgba(2, 2, 2, 0);
+    --color-serch-x-hover: rgba(201, 201, 204, 0.525);
+    --color-serch-icon-x-hover: rgba(255,255,255);
+    --color-card-header: rgba(249, 246, 246, 0.929);
+    --color-card-comentarios: rgba(255, 255, 255, 0.93);
+}
+
+/* Modo Oscuro */
+.dark-mode{
+
+    --color-de-fondo: rgba(30, 31, 34);
+    --color-de-contenido: rgb(30, 31, 34);
+    --color-barra-lateral: rgb(0,0,0);
+
+    --color-texto: rgb(255,255,255);
+    --color-texto-menu: rgb(110,110,117);
+
+    --color-menu-hover:rgb(44,45,49); 
+    --color-menu-hover-texto:rgb(238,238,238);
+
+    --color-boton: rgb(255,255,255);
+    --color-boton-texto:rgb(0,0,0);
+
+    --color-linea: rgb(90,90,90);
+
+    --color-switch-base: rgb(39,205,64);
+    --color-switch-circulo: rgb(255,255,255);
+
+    --color-scroll: rgb(68,69,74);
+    --color-scroll-hover: rgb(85,85,85);
+    --color-card-header: rgba(20, 19, 19, 0.77);
+    --color-card-comentarios: rgba(2, 2, 2, 0.655);
+
+}
+    
+*{
+    margin: 0; /* Quita el margen */
+    padding: 0; /* Quita el padding */
+    box-sizing: border-box; /* Hace que el tamaño de los elementos sea el mismo que el que se le asigna */
+    font-family: "Outfit", serif; /* Fuente de letra */
+}
+
+
+/* Estilo para el cuerpo de la página */
+body{
+    height: 100%; /* Altura de la ventana gráfica */
+    width:100%; /* Ancho completo */
+    
+}
+
+/*----------> Barra lateral menú */
+
+/* Estilo para el botón del menú */
+.menu{
+    position: fixed; /* Posición fija */
+    width: 50px; /* Ancho del botón */
+    height: 50px; /* Altura del botón */
+    font-size: 30px; /* Tamaño de la fuente */
+    display: none; /* No se muestra por defecto */
+    justify-content: center; /* Centra el contenido horizontalmente */
+    align-items: center; /* Centra el contenido verticalmente */
+    border-radius: 50%; /* Bordes redondeados */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+    background-color: var(--color-boton); /* Color de fondo del botón */
+    color: var(--color-boton-texto); /* Color del texto del botón */
+    right: 15px; /* Posición desde la derecha */
+    top: 15px; /* Posición desde arriba */
+    z-index: 100; /* Nivel de apilamiento */
+}
+
+/*----------> Barra Lateral */
+
+/* Estilo para la barra lateral */
+.barra-lateral{
+    position: fixed; /* Posición fija */
+    display: flex; /* Uso de flexbox */
+    flex-direction: column; /* Dirección de los elementos en columna */
+    justify-content: flex-start; /* Alineación al inicio */
+    z-index: 50; /* Nivel de apilamiento */
+    height: 100%; /* Altura completa */
+    overflow: hidden; /* Oculta el desbordamiento */
+    width: 270px; /* Ancho de la barra lateral */
+    padding: 20px 15px; /* Espaciado interno */
+    background-color: var(--color-barra-lateral); /* Color de fondo */
+    transition: width 0.5s ease, background-color 0.5s ease, left 0.5s ease; /* Transiciones */
+}
+
+/* Estilo para la barra lateral en modo mini */
+.mini-barra-lateral{
+    width:80px; /* Ancho reducido */
+}
+
+/* Estilo para los spans dentro de la barra lateral */
+.barra-lateral  span{
+    font-size: 18px; /* Tamaño de la fuente */
+    opacity: 1; /* Opacidad */
+    text-wrap: nowrap; /* No permite que el texto se desborde */
+    transition: opacity 0.5s ease,width 0.5s ease; /* Transiciones */
+}
+
+/* Estilo para los spans ocultos */
+.barra-lateral span.oculto{
+    opacity: 0; /* Opacidad cero */
+    width: 0; /* Ancho cero */
+}
+
+/* Estilo para el nombre de la página */
+.barra-lateral .nombre-pagina span{
+    font-family: "English Towne", serif; /* Fuente de letra */
+    font-size: 30px; /* Tamaño de la fuente */
+    text-wrap: nowrap; /* No permite que el texto se desborde */
+    margin-left: 0px; /* Espacio entre el icono y el texto del logo de la página */
+}
+
+/*----------> Nombre de la pagina */
+
+/* Estilo para el contenedor del nombre de la página */
+.barra-lateral .nombre-pagina{
+    width: 100%; /* Ancho completo */
+    height:45px; /* Altura del contenedor */
+    color: var(--color-texto); /* Color del texto */
+    margin-top: 20px; /* Margen superior */
+    margin-bottom: 30px; /* Margen inferior */
+    display:flex; /* Uso de flexbox */
+    align-items: center; /* Alineación vertical */
+}
+
+/* Estilo para el icono de la nube */
+#cloud {
+    min-width: 50px; /* Ancho mínimo */
+    width: 50px; /* Ancho */
+    height: 40px; /* Altura */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el icono */
+    color: var(--color-texto); /* Color del texto */
+}
+
+/*----------> Botón */
+
+/* Estilo para los botones dentro de la barra lateral */
+.barra-lateral .boton{
+    width: 100%; /* Ancho completo */
+    height: 45px; /* Altura del botón */
+    margin-bottom: 20px; /* Margen inferior */
+    display: flex; /* Uso de flexbox */
+    align-items: center; /* Alineación vertical */
+    justify-content: center; /* Alineación horizontal */
+    border: none; /* Sin borde */
+    border-radius: 10px; /* Bordes redondeados */
+    text-decoration: none; /* Sin subrayado */
+    background-color: var(--color-boton); /* Color de fondo */
+    color: var(--color-boton-texto); /* Color del texto */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el botón */
+}
+
+/* Estilo para los iconos dentro de los botones */
+.barra-lateral .boton ion-icon{
+    min-width: 50px; /* Ancho mínimo */
+    font-size: 25px; /* Tamaño de la fuente */
+}
+
+/*----------> Navegación */
+
+/* Estilo para la navegación dentro de la barra lateral */
+.barra-lateral .navegacion{
+    height: 100%; /* Altura completa */
+    overflow-y: auto; /* Desbordamiento vertical */
+    overflow-x: hidden; /* Oculta el desbordamiento horizontal */
+    
+}
+
+/* Estilo para la barra de desplazamiento en la navegación */
+.barra-lateral .navegacion::-webkit-scrollbar{
+    width: 5px; /* Ancho de la barra de desplazamiento */
+}
+
+/* Estilo para el pulgar de la barra de desplazamiento */
+.barra-lateral .navegacion::-webkit-scrollbar-thumb{
+    background-color: var(--color-scroll); /* Color del pulgar */
+    border-radius: 10px; /* Bordes redondeados */
+}
+
+/* Estilo para el pulgar de la barra de desplazamiento al pasar el cursor */
+.barra-lateral .navegacion::-webkit-scrollbar-thumb:hover{
+    background-color: var(--color-scroll-hover); /* Color del pulgar al pasar el cursor */
+}
+
+
+/* Estilo para los elementos de la lista de navegación */
+
+.barra-lateral .navegacion ul {
+    margin: 0;
+    padding: 0;
+}
+
+.barra-lateral .navegacion li{
+    list-style: none; /* Sin estilo de lista */
+    display: flex; /* Uso de flexbox */
+    margin-bottom: 5px; /* Margen inferior */
+    
+}
+
+/* Estilo para los enlaces de la navegación */
+.barra-lateral .navegacion a{
+    width: 100%; /* Ancho completo */
+    height: 45px; /* Altura del enlace */
+    display: flex; /* Uso de flexbox */
+    align-items: center; /* Alineación vertical */
+    text-decoration: none; /* Sin subrayado */
+    border-radius: 10px; /* Bordes redondeados */
+    color: var(--color-texto-menu); /* Color del texto */
+}
+
+/* Estilo para los iconos dentro de los enlaces de navegación */
+.barra-lateral .navegacion  ion-icon{
+    min-width: 50px; /* Ancho mínimo */
+    font-size: 20px; /* Tamaño de la fuente */
+}
+
+/* Estilo para los enlaces de navegación al pasar el cursor */
+.barra-lateral .navegacion a:hover{
+    background-color: var(--color-menu-hover); /* Color de fondo al pasar el cursor */
+    color: var(--color-menu-hover-texto); /* Color del texto al pasar el cursor */
+}
+
+/*----------> Linea */
+
+/* Estilo para la línea divisoria */
+.barra-lateral .linea{
+    width: 100%; /* Ancho completo */
+    height: 1px; /* Altura de la línea */
+    background-color: var(--color-linea); /* Color de la línea */
+}
+
+/*----------> Modo Oscuro */
+
+/* Estilo para el contenedor del modo oscuro */
+.barra-lateral .modo-oscuro{
+    width: 100%; /* Ancho completo */
+    border-radius: 10px; /* Bordes redondeados */
+    display: flex; /* Uso de flexbox */
+    justify-content: space-between; /* Espaciado entre elementos */
+    margin-bottom: 30px; /* Margen inferior */
+}
+
+/* Estilo para la información del modo oscuro */
+.barra-lateral .modo-oscuro .info{
+    width: 150px; /* Ancho */
+    height: 45px; /* Altura */
+    overflow: hidden; /* Oculta el desbordamiento */
+    display: flex; /* Uso de flexbox */
+    align-items: center; /* Alineación vertical */
+    color: var(--color-texto-menu); /* Color del texto */
+}
+
+/* Estilo para los iconos del modo oscuro */
+.barra-lateral .modo-oscuro ion-icon{
+    width: 50px; /* Ancho */
+    font-size: 20px; /* Tamaño de la fuente */
+}
+
+/*----------> Switch */
+
+/* Estilo para el switch del modo oscuro */
+.barra-lateral .switch{
+    display: flex; /* Uso de flexbox */
+    align-items: center; /* Alineación vertical */
+    justify-content: center; /* Alineación horizontal */
+    min-width: 50px; /* Ancho mínimo */
+    height: 45px; /* Altura */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el switch */
+}
+
+/* Estilo para la base del switch */
+.barra-lateral .modo-oscuro .base{
+    position: relative; /* Posición relativa */
+    display: flex; /* Uso de flexbox */
+    align-items: center; /* Alineación vertical */
+    width: 35px; /* Ancho */
+    height: 20px; /* Altura */
+    background-color: var(--color-switch-base); /* Color de fondo */
+    border-radius: 50px; /* Bordes redondeados */
+}
+
+/* Estilo para el círculo del switch */
+.barra-lateral .modo-oscuro .circulo{
+    position: absolute; /* Posición absoluta */
+    width: 18px; /* Ancho */
+    height: 90%; /* Altura */
+    background-color: var(--color-switch-circulo); /* Color de fondo */
+    border-radius: 50%; /* Bordes redondeados */
+    left: 2px; /* Posición desde la izquierda */
+    transition: left 0.5s ease; /* Transición */
+}
+
+/* Estilo para el círculo del switch cuando está prendido */
+.barra-lateral .modo-oscuro .circulo.prendido{
+    left: 15px; /* Posición desde la izquierda */
+}
+
+/*----------> Usuario */
+
+/* Estilo para el contenedor del usuario */
+.barra-lateral .usuario{
+    width: 100%; /* Ancho completo */
+    display: flex; /* Uso de flexbox */
+    text-decoration: none; /* Elimina el subrayado del enlace */
+}
+
+/* Estilo para la imagen del usuario */
+.barra-lateral .usuario img{
+    border: 3px solid var(--color-texto-menu); /* Borde */
+    width: 50px; /* Ancho */
+    height: 50px; /* Alto */
+    min-width: 50px; /* Ancho mínimo */
+    border-radius: 10px; /* Bordes redondeados */
+    object-fit: cover; /* Ajusta la imagen al contenedor */
+    margin-right: 10px;
+}
+
+/* Estilo para la información del usuario */
+.barra-lateral .usuario .info-usuario{
+    width: 100%; /* Ancho completo */
+    display: flex; /* Uso de flexbox */
+    align-items: center; /* Alineación vertical */
+    justify-content: space-between; /* Espaciado entre elementos */
+    color: var(--color-texto); /* Color del texto */
+    overflow: hidden; /* Oculta el desbordamiento */
+    flex-direction: column;
+}
+
+/* Estilo para el contenedor del nombre y email del usuario */
+.barra-lateral .usuario .nombre-email{
+    width: 100%; /* Ancho completo */
+    display: flex; /* Uso de flexbox */
+    flex-direction: column; /* Dirección de los elementos en columna */
+    margin-left: 5px; /* Margen izquierdo */
+}
+
+/* Estilo para el nombre del usuario */
+.barra-lateral .usuario .nombre{
+    font-size: 15px; /* Tamaño de la fuente */
+    font-weight: 600; /* Peso de la fuente */
+}
+
+/* Estilo para el email del usuario */
+.barra-lateral .usuario .email{
+    font-size: 15px; /* Tamaño de la fuente */
+}
+
+/* Estilo para los iconos dentro del contenedor del usuario */
+.barra-lateral .usuario icon-icon{
+    font-size: 20px; /* Tamaño de la fuente */
+    cursor: pointer; /* Cambia el cursor al pasar sobre el icono */
+}
+
+/*----------> Contenido  MAIN --------------*/
+
+/* Estilo para el contenido principal */
+main{
+    margin-left: 270px; /* Margen izquierdo */
+    padding: 20px; /* Espaciado interno */
+    transition: margin-left 0.5s ease; /* Transición */
+    position: relative;
+    background-color: var(--color-de-fondo);
+
+}
+
+/* Estilo para el contenido principal en modo mini */
+main.min-main{
+    margin-left: 80px; /* Margen izquierdo reducido */
+}
+
+
+
+
+
+/* Contenedor del buscador */
+
+.search-container{
+    position: absolute;
+    width: 100%;
+    height: 50px;
+    display: flex;
+    align-items: center; /* Asegura alineación vertical */
+    justify-content: space-between; /* Distribuye los elementos */
+    top: -60px;
+    left: 0;
+    border-bottom-left-radius: 5px;
+    border-bottom-right-radius: 5px;
+    overflow: hidden;
+    transition: top 0.3s ease-in-out;
+    background-color: var(--color-serch-input);
+}
+
+
+
+.search-container.active{
+    top: 0;
+}
+
+.search-form {
+    display: flex;
+    width: 100%;
+    align-items: center;
+}
+
+.search-icon{
+    font-size: 20px;
+    cursor: pointer;
+    padding: 15px; /*  */
+    color: var(--color-texto-menu);
+    position: absolute;
+    background-color: var(--color-serch-lupa);
+
+}
+
+
+
+/* Input de búsqueda */
+.search-input{
+    flex: 1;
+    border: none;
+    outline: none;
+    background-color: var(--color-serch-input);
+    /* color: var(--color-barra-lateral); */
+    padding-left: 60px;
+    padding-right: 60px;
+    color: black;
+    font-size: 20px;
+}
+
+.search-input::placeholder{
+    left: 10px;
+    color: var(--color-texto-menu);
+}
+    
+
+/* Botón para cerrar */
+
+.search-container .close-search {
+    position: absolute;
+    right: 0px;
+    height: 100%;
+    width: 50px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--color-serch-x);
+    cursor: pointer;
+    border-color: var(--color-serch-x);
+    
+}
+.search-container .close-search:hover{
+    background: var(--color-menu-hover );
+}
+
+.search-container .close-search ion-icon:hover{
+    color: var(--color-menu-hover-texto);
+}
+.search-container .close-search ion-icon {
+
+    color: var(--color-texto-menu);
+    font-size: 25px;
+
+}
+
+/* ---------------Contenido--------------- */
+
+.contenido.search-active {
+    margin-top: 60px; /* Empuja el contenido hacia abajo */
+}
+
+.contenido {
+    
+    transition: margin-top 0.3s ease-in-out;
+    background-color: var(--color-de-contenido);
+    justify-content: flex-start; /* Sirve para alinear los elementos verticalmente */
+    display: flex;
+    flex-direction: column;
+    
+    
+}
+
+
+
+
+/*---------------------- RESPONSIVE ----------------------*/
+
+/* Estilo para pantallas con altura máxima de 660px */
+@media (max-height: 660px){
+    .barra-lateral .nombre-pagina{
+        margin-bottom: 5px; /* Margen inferior reducido */
+    }
+    .barra-lateral .modo-oscuro{
+        margin-bottom: 30px; /* Margen inferior */
+    }
+    .barra-lateral .usuario{
+        margin-top: 20px; /* Margen superior */
+    }
+}
+
+/* Estilo para pantallas con ancho máximo de 600px */
+@media (max-width: 600px){
+    .barra-lateral{
+        position: fixed; /* Posición fija */
+        left: -270px; /* Posición desde la izquierda */
+    }
+    .max-barra-lateral{
+        left: 0; /* Posición desde la izquierda */
+    }
+    .menu{
+        display: flex; /* Mostrar el menú */
+    }
+    .menu ion-icon:nth-child(2){
+        display: none; /* Ocultar el segundo icono */
+    }
+    main{
+        margin-left: 0; /* Sin margen izquierdo */
+    }
+    main.min-main{
+        margin-left: 0; /* Sin margen izquierdo */
+        
+    }
+    .search-container{
+        width: 85%; /* Reduce el ancho al 80% del viewport */
+        border-radius: 5px;
+    }
+}

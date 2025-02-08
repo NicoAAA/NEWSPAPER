@@ -9,16 +9,21 @@ FECHA: 29/10/2024
 VERSION: 1.0
 '''
 
-from django.shortcuts import render
+from django.http import JsonResponse
+from django.shortcuts import render, redirect
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views import View
 from django.views.generic import ListView, DetailView, FormView
 from django.views.generic.detail import SingleObjectMixin
 from django.views.generic.edit import UpdateView, DeleteView, CreateView
 from django.urls import reverse_lazy, reverse
-from .models import Article
+from .models import Article, Comment
 from .forms import CommentForm
 from .models import Comment
+
+
+
+
 
 # Create your views here.
 
@@ -65,9 +70,31 @@ class CommentPost (SingleObjectMixin, FormView):
 
 
 
-class ArticleListView(LoginRequiredMixin,ListView):
+class ArticleListView(LoginRequiredMixin, ListView):
     model = Article
     template_name = "article_list.html"
+    context_object_name = 'article_list'
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['form'] = CommentForm()
+        return context
+
+    def post(self, request, *args, **kwargs):
+        form = CommentForm(request.POST)
+        article_id = request.POST.get("article_id")
+        article = Article.objects.get(id=article_id)
+        
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.article = article
+            comment.author = request.user
+            comment.save()
+
+            # Retornar respuesta en JSON
+            return JsonResponse({'status': 'success', 'message': 'Comentario agregado!'})
+        else:
+            return JsonResponse({'status': 'error', 'message': 'Error al agregar comentario.'})
 
 class ArticleDetailView(LoginRequiredMixin,View):
     
@@ -112,3 +139,18 @@ class ArticleCreateView(LoginRequiredMixin,CreateView):
     def form_valid(self, form):
         form.instance.author = self.request.user
         return super().form_valid(form)
+
+
+
+
+
+
+def article_search(request):
+    query = request.GET.get('query', '')  # Captura el término de búsqueda
+    results = []
+
+    if query:
+        results = Article.objects.filter(title__icontains=query)  # Filtra por título
+
+    return render(request, 'article_search.html', {'query': query, 'results': results})
+

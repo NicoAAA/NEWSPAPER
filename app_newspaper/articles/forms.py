@@ -21,4 +21,9 @@ class CommentForm(forms.ModelForm):
     class Meta:
         model = Comment
         fields = ("comment",)
+        
+    comment = forms.CharField(
+        widget=forms.TextInput(attrs={'class': 'new-comment custom-form-control mt-2', 'placeholder': 'Escribe un comentario...'})
+    )
+    
     

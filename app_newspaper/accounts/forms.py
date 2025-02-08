@@ -14,6 +14,8 @@ from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 
 # Importamos el modelo CustomUser.
 from .models import CustomUser
+from django import forms
+from .models import Profile
 
 # Definimos la clase CustomUserCreationForm que hereda de UserCreationForm.
 class CustomUserCreationForm(UserCreationForm):
@@ -54,3 +56,9 @@ class CustomUserChangeForm(UserChangeForm):
             'email',
             'age',
         )
+
+
+class ProfileForm(forms.ModelForm):
+    class Meta:
+        model = Profile
+        fields = ['profile_picture']

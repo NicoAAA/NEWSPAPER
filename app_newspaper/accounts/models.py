@@ -15,6 +15,9 @@ from django.contrib.auth.models import AbstractUser
 # Importamos el modelo models de Django.
 from django.db import models
 
+# Importamos el modelo User de Django.
+from django.conf import settings
+
 # Create your models here.
 
 class CustomUser(AbstractUser):
@@ -26,3 +29,14 @@ class CustomUser(AbstractUser):
     
     # Definimos el camopo age como un campo entero positivo.
     age = models.PositiveIntegerField(null=True, blank=True)
+
+class Profile(models.Model):
+    user = models.OneToOneField(settings.AUTH_USER_MODEL, on_delete=models.CASCADE)
+    profile_picture = models.ImageField(upload_to='profile_pics/', default='default.jpg')
+    followers = models.ManyToManyField(settings.AUTH_USER_MODEL, related_name="followers", blank=True)
+
+    def __str__(self):
+        return f'Perfil de {self.user.username}'
+
+    def total_followers(self):
+        return self.followers.count()

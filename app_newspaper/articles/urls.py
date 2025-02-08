@@ -15,7 +15,8 @@ from .views import (
       ArticleUpdateView,
       ArticleDeleteView,
       ArticleCreateView,
-      CommentUpdateView
+      CommentUpdateView,
+      article_search,
 )
 
 
@@ -33,4 +34,6 @@ urlpatterns = [
     name='article_list'
          ),
     path('comment/<int:pk>/edit/', CommentUpdateView.as_view(), name='comment_edit'),
+    path('search/', article_search, name='article_search'),
+    
 ]

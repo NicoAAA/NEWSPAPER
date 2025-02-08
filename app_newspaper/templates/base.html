@@ -16,50 +16,173 @@ VERSION: 1.0
     <head>
         <meta charset="UTF-8">
         <meta name= "viewport" content= "width=device-width, initial-scale=1.0, shrink-to-fit=no">
+        <link rel="stylesheet" href="{% static 'css/base.css' %}">
+        <link rel="stylesheet" href="{% static 'css/article_list.css' %}">
         <title>{% block title %}Newspaper{% endblock title%}</title>
         {% load bootstrap5 %}
         {% bootstrap_css %}
         {% bootstrap_javascript %}
     </head>
     <body>
-        <div class="container">
-            <header class="p-3 mb-3 border-bottom">
-                <div class="container">
-                    <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
-                        <a class="navbar-brand" href="{% url 'home' %}">Newspaper</a>
-                        <a class="navbar-brand" href="{% url 'article_list' %}">Articles</a>
-                        <ul class="nav col-12 col-lg-auto me-lg-auto mb-2 justify-content-center mb-md-0">
-                        
-                            
-                        {% if user.is_authenticated %}
-                            <li><a href="{% url 'article_new' %}" class="nav-link px-2 link-dark">
-                                + New</a></li>
-                            </ul>
-                            <div class="dropdown text-end">
-                                <a href="#" class="d-block link-dark text-decoration-none dropdown-toggle" id="dropdownUser1" data-bs-toggle="dropdown" aria-expanded="false">
-                                    {{ user.username }}
-                                </a>
-                                <ul class="dropdown-menu text-small" aria-labelledby="dropdownUser1">
-                                    <li><a class="dropdown-item" href="{% url 'password_change' %}">Change Password</a></li>
-                                    <li><a class="dropdown-item" href="{% url 'logout' %}">Log Out</a></li>
-                                </ul>
+        <div class="menu">
+            <ion-icon name="menu-outline"></ion-icon>
+            <ion-icon name="close-outline"></ion-icon>
+        </div>
+        <div class="barra-lateral">
+            <div>
+                <div class="nombre-pagina">
+                    <svg id="cloud" width="50" height="40" viewBox="0 0 1200 1200" xmlns="http://www.w3.org/2000/svg">
+                        <g transform="translate(0.000000,1200.000000) scale(0.110000,-0.100000)" fill="currentColor">
+                            <path d="M7640 10028 c-19 -17 -82 -77 -140 -132 -58 -56 -208 -200 -335 -321
+                                        -220 -210 -321 -308 -590 -566 -66 -63 -142 -136 -170 -162 l-50 -47 145 -144
+                                        145 -145 112 95 c118 100 127 103 163 59 35 -42 211 -122 340 -154 152 -38
+                                        496 -64 540 -41 12 6 24 9 27 7 5 -6 10 -257 18 -963 l4 -441 -72 -12 c-40 -6
+                                        -101 -19 -136 -27 -70 -17 -332 -33 -531 -34 -199 0 -395 35 -505 91 l-60 30
+                                        -84 152 c-77 139 -129 234 -281 522 -62 117 -105 199 -208 390 -41 77 -111
+                                        208 -155 290 -109 205 -295 472 -546 784 -433 538 -772 740 -1320 783 -333 26
+                                        -641 -49 -900 -219 -216 -143 -482 -447 -606 -694 -186 -369 -229 -896 -92
+                                        -1129 36 -61 119 -126 146 -114 9 4 31 9 49 12 25 3 33 10 37 31 27 130 59
+                                        206 130 306 78 109 163 181 332 278 83 48 131 69 185 80 250 53 299 66 326 86
+                                        67 47 62 125 62 -963 l0 -984 -97 -11 c-93 -12 -152 -21 -342 -56 -395 -71
+                                        -646 -482 -618 -1013 8 -140 31 -233 92 -357 122 -252 329 -405 578 -430 l67
+                                        -7 0 109 c0 143 23 215 90 285 55 57 87 62 174 23 l56 -25 -2 -802 -3 -803
+                                        -118 -42 c-239 -84 -472 -214 -662 -367 -84 -67 -243 -226 -311 -311 -130
+                                        -161 -256 -387 -347 -620 -41 -105 -99 -287 -93 -293 2 -2 17 3 33 11 15 8 73
+                                        31 128 52 55 20 125 51 155 68 53 30 145 71 275 122 247 97 528 147 830 148
+                                        223 0 361 -15 557 -64 126 -31 366 -113 463 -157 145 -66 359 -176 459 -237
+                                        88 -52 112 -63 121 -53 7 7 99 128 205 268 106 140 205 270 219 289 92 122
+                                        367 485 439 579 l85 114 -129 129 c-71 71 -132 129 -135 129 -4 0 -36 -40 -71
+                                        -90 -34 -49 -68 -89 -73 -90 -6 0 -39 20 -75 44 -289 194 -677 354 -980 405
+                                        -224 38 -435 51 -500 31 -13 -4 -15 63 -18 555 -1 308 0 570 3 581 6 27 136
+                                        92 255 128 185 55 439 81 708 73 317 -9 528 -56 927 -208 l138 -53 41 -90 c23
+                                        -50 81 -167 129 -261 85 -164 329 -657 464 -935 69 -142 137 -266 185 -338 16
+                                        -23 31 -52 33 -63 5 -27 159 -284 254 -424 242 -358 507 -621 726 -721 85 -39
+                                        190 -64 273 -64 l72 0 0 3319 c0 1826 3 3326 6 3335 3 9 15 16 25 16 18 0 136
+                                        52 244 107 138 71 307 200 489 374 138 132 224 235 289 346 54 91 104 236 114
+                                        323 5 52 3 63 -13 75 -43 34 -48 34 -123 -1 -462 -221 -830 -206 -1296 50 -72
+                                        40 -235 146 -270 176 -11 10 -31 25 -45 33 -24 16 -27 15 -60 -15z m-3502
+                                        -1520 c150 -103 313 -312 523 -673 120 -206 163 -287 247 -470 33 -71 75 -164
+                                        95 -205 82 -176 117 -252 117 -255 0 -2 25 -56 56 -121 49 -104 78 -167 166
+                                        -364 49 -109 130 -284 181 -391 31 -63 75 -160 100 -215 24 -54 80 -170 124
+                                        -257 43 -86 78 -159 76 -161 -3 -2 -30 2 -61 10 -124 30 -302 63 -407 74 -183
+                                        21 -457 17 -624 -9 -169 -26 -382 -71 -534 -112 -59 -17 -112 -27 -117 -24
+                                        -14 9 -14 3205 1 3205 6 0 31 -14 57 -32z m3702 -2970 c5 -585 7 -1064 5
+                                        -1066 -3 -4 -121 176 -192 293 -170 279 -485 906 -668 1325 -35 80 -100 223
+                                        -144 319 -45 95 -80 176 -77 178 2 2 40 -3 84 -12 67 -14 140 -16 468 -13 360
+                                        4 393 5 449 24 33 12 62 19 64 18 2 -2 7 -482 11 -1066z" />
+                        </g>
+                    </svg>
+                    <!-- <ion-icon id="cloud" name="cloud-outline"></ion-icon>  -->
+                    <span>e w s p a p e r</span>
+                </div>
+                
+                    <a class="boton" href="{% url 'article_new' %}">
+                        <ion-icon name="add-outline"></ion-icon>
+                        <span>New Article</span>
+                    </a>
+                
+            </div>
+            <nav class="navegacion">
+                <ul>
+                    <li>
+                        <a href="{% url 'home' %}">
+                            <ion-icon name="home-outline"></ion-icon>
+                            <span>Home</span>
+                        </a>
+                    </li>
+                    {% if user.is_authenticated %}
+                    <li>
+                        <a href="{% url 'article_list' %}">
+                            <ion-icon name="newspaper-outline"></ion-icon>
+                            <span>Articles</span>
+                        </a>
+                    </li>
+    
+                    <li>
+                        <a href="#" id="search-link">
+                            <ion-icon name="search-outline"></ion-icon>
+                            <span>Serch</span>
+                        </a>
+    
+                    </li>
+                    
+            
+                    <li>
+                        <a href="{% url 'profile' username=user.username %}">
+                            <ion-icon name="person-circle-outline"></ion-icon>
+                            <span>Perfil</span>
+                        </a>
+                    </li>
+                    {% endif %}
+    
+                </ul>
+            </nav>
+    
+            <div>
+                <div class="linea"></div>
+    
+                <div class="modo-oscuro">
+                    <div class="info">
+                        <ion-icon name="moon-outline"></ion-icon>
+                        <span>Dark Mode</span>
+                    </div>
+                    <div class="switch">
+                        <div class="base">
+                            <div class="circulo">
+    
                             </div>
-                        {% else %}
-                        </ul>
-                            <div class="text-end">
-                                <a href="{% url 'login' %}" class="btn btn-outline-primary me-2">Log In</a>
-                                <a href="{% url 'signup' %}" class="btn btn-primary">Sign Up</a>
-                            </div>
-                                
-                        {% endif %}
+                        </div>
                     </div>
                 </div>
-            </header>
+                {% if user.is_authenticated %}
+                    <a href="{% url 'profile' username=user.username %}" class="usuario">
+                        {% if user.profile.profile_picture %}
+                            <img src="{{ user.profile.profile_picture.url }}" alt="Foto de perfil" width="100">
+                        {% else %}
+                            <img src="/media/profile_pics/default.jpg" alt="Foto de perfil predeterminada" width="100">
+                        {% endif %}
+                        <div class="info-usuario">
+                            <div class="nombre-email">
+                                <span class="nombre">{{ user.username }}</span>
+                                <span class="email">{{ user.email }}</span>
+                            </div>
+                        </div>
+                    <a>
+                {% else %}
+                    <button class="boton" href="{% url 'login' %}">
+                        <ion-icon name="log-in-outline"></ion-icon>
+                        <span>Log In</span>
+                    </button>
+                    <button class="boton" href="{% url 'signup' %}">
+                        <ion-icon name="person-add-outline"></ion-icon>
+                        <span>Sign Up</span>
+                    </button>
+                {% endif %}
+            </div>
+        </div>
                                 
 
         <main>
-            {% block content %}
-            {% endblock content %}
+            <div class="search-container" id="buscar">
+                <form action="{% url 'article_search' %}" method="GET" class="search-form">
+                    <button type="button" class="search-icon">
+                        <ion-icon name="search-outline"></ion-icon>
+                    </button>
+                    <input type="text" name="query" placeholder="Search" class="search-input" id="search-box" required>
+                    <button type="button" class="close-search">
+                        <ion-icon name="close-outline"></ion-icon>
+                    </button>
+                </form>
+            </div>
+            <section class="contenido">
+                {% block content %}
+                {% endblock content %}
+            </section>
         </main>
+        <script type="module" src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.esm.js"></script>
+        <script nomodule src="https://unpkg.com/ionicons@7.1.0/dist/ionicons/ionicons.js"></script>
+        <script src="{% static 'js/base.js' %}"></script>
+        <script src="{% static 'js/article_list.js' %}"></script>
+        
     </body>
 </html>

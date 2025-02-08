@@ -23,12 +23,9 @@ class Article(models.Model):
         on_delete=models.CASCADE,
     )
     image = models.ImageField(upload_to='article_images/', blank=True, null=True)
-    def __str__(self):
-        return self.title
     
     def get_absolute_url(self):
         return reverse('article_detail', kwargs={'pk': self.pk})
-
 
 class Comment(models.Model):
     article = models.ForeignKey(Article, on_delete=models.CASCADE,)

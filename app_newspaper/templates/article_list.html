@@ -1,4 +1,5 @@
 {% extends "base.html" %}
+{% load crispy_forms_tags %}
 
 {% comment %} 
 
@@ -14,11 +15,182 @@ VERSION: 1.0
 {% endcomment %}
 
 <!--  templates\article_list.html -->
+{% block title %}Post{% endblock title %}
+
+
+
+
+{% block content %}
+<div class="custom-container mt-4">
+    <h1>A r t i c l e s</h1>
+    {% for article in article_list %}
+        <div class="post-container" style="position: relative;">
+            <!-- Enlace superpuesto: este <a> cubre todo el contenedor -->
+            <a href="{% url 'article_detail' article.pk %}" class="custom-overlay-link"></a>
+            
+            <!-- Contenido visible e interactivo con z-index mayor -->
+            <div class="post-content">
+                <!-- Header: Foto de perfil y usuario -->
+                <div class="perfil-container custom-d-flex custom-align-items-center"> 
+                    <a href="{% url 'profile' username=article.author.username %}" >     
+                        <img src="{{ article.author.profile.profile_picture.url }}" alt="Foto de perfil" class="profile-pic">
+                    </a>
+                    <a href="{% url 'profile' username=article.author.username %}" style="text-decoration: none; color: inherit;">
+                        <strong class="custom-ms-2">{{ article.author.username }}</strong>
+                    </a>
+                    {% if request.user == article.author %}
+                        <div class="menu-container">
+                            <!-- Botón de opciones -->
+                            <button class="menu-toggle">
+                                <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                            </button>
+                    
+                            <!-- Menú desplegable -->
+                            <div class="menu-dropdown">
+                                <a href="{% url 'article_edit' article.pk %}"><ion-icon name="create-outline"></ion-icon> Editar</a>
+                                <a href="{% url 'article_delete' article.pk %}"><ion-icon name="trash-outline"></ion-icon> Eliminar</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="menu-container">
+                            <!-- Botón de opciones -->
+                            <button class="menu-toggle">
+                                <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                            </button>
+                    
+                            <!-- Menú desplegable -->
+                            <div class="menu-dropdown">
+                                <a href="{% url 'profile' username=article.author.username %}"><ion-icon name="body-outline"></ion-icon></ion-icon> Autor</a>
+                                <a href="{% url 'article_detail' article.pk %}"><ion-icon name="bookmark-outline"></ion-icon> Detalle</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                </div>
+
+                <!-- Imagen del post -->
+                {% if article.image %}
+                    <div class="post-image">
+                        <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                    </div>
+                {% endif %}
+
+                <!-- Texto del post -->
+                <div class="card-body  publicacion" >
+                    <a href="{% url 'article_detail' article.pk %}" class="custom-overlay-link-publicacion"></a>
+                        
+                            <h5 class="mb-0">{{ article.title }}</h5>
+                            <p>{{ article.body }}</p>
+                        
+                </div>
+
+                <!-- Botones de interacciones -->
+                <div class="comentarios-container">
+                    <button class="custom-comment-toggle">
+                        <ion-icon name="chatbubbles-outline"></ion-icon> Comentarios
+                    </button>
+                </div>
+
+                <!-- Sección de comentarios -->
+                <div class="comments-section">
+                    <div class="comment-list">
+                        {% for comment in article.comment_set.all %}
+                            <div class="mb-2">
+                                <img src="{{ comment.author.profile.profile_picture.url }}" alt="Foto de perfil" class="foto-comentario">
+                                <strong>{{ comment.author }}</strong> &middot; 
+                                <small class="text-muted">{{ comment.date_posted|default:"Just now" }}</small>
+                                <p class="mb-0">{{ comment }}</p>
+                            </div>
+                        {% empty %}
+                            <p class="text-muted">No comments yet. Be the first to comment!</p>
+                        {% endfor %}
+                    </div>
+                    <form method="post" action="">
+                        {% csrf_token %}
+                        {{ form|crispy }}
+                        <input type="hidden" name="article_id" value="{{ article.id }}">
+                        <button type="submit" class="custom-btn custom-btn-primary add-comment">Post</button>
+                    </form>
+                </div>
+            </div><!-- /.post-content -->
+        </div><!-- /.post-container -->
+    {% endfor %}
+</div><!-- /.custom-container -->
+{% endblock content %}
+
+{% comment %} 
+{% block content %}
+
+    
+        {% for article in article_list %}
+            <div class="post-container"  >
+                <!-- Header: Foto de perfil y usuario -->
+                <div class="perfil-container d-flex align-items-center">      
+                    <img src="{{ article.author.profile.profile_picture.url }}" alt="Foto de perfil" class="profile-pic" >
+                    <strong class="ms-2">{{ article.author.username }}</strong>
+                    <div>
+                        {% if request.user == article.author %}
+                            <a href="{% url 'article_edit' article.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                            <a href="{% url 'article_delete' article.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                        {% endif %}
+                    </div>
+                    
+                </div>
+
+                <!-- Imagen del post -->
+                {% if article.image %}
+                    <div class="post-image">
+                            <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                    </div>
+                {% endif %}
+                
+
+                <!-- Texto del post -->
+                <div class="card-body ">
+                    <h5 class="mb-0">{{ article.title }}</h5>
+                    <div class="publicacion">
+                        <p>{{ article.body }}</p>
+                    </div>
+                </div>
+
+                <!-- Botones de interacciones -->
+                <div class="comentarios-container" >
+                    <button class=" comment-toggle"><ion-icon name="chatbubbles-outline"></ion-icon> Comentarios</button>
+                </div>
+
+                <!-- Sección de comentarios -->
+                <div class="comments-section" style="display: none;">
+                    <div class="comment-list">
+                        {% for comment in article.comment_set.all %}
+                            <div class="mb-2">
+                                <img src="{{ comment.author.profile.profile_picture.url }}" alt="Foto de perfil" class="foto-comentario" >
+                                <strong>{{ comment.author }}</strong> &middot; 
+                                <small class="text-muted">{{ comment.date_posted|default:"Just now" }}</small>
+                                <p class="mb-0">{{ comment }}</p>
+                            </div>
+                        {% empty %}
+                            <p class="text-muted">No comments yet. Be the first to comment!</p>
+                        {% endfor %}
+                    </div>
+                    <form method="post" action="{% url 'article_detail' article.pk %}">
+                        {% csrf_token %}
+                        <input type="text" class="new-comment form-control mt-2" name="comment" placeholder="Escribe un comentario..." required>
+                        <button type="submit" class="btn btn-primary add-comment">Post</button>
+                    </form>
+                </div>
+            </div>
+        {%endfor%}
+    
+
+{% endblock content %} {% endcomment %}
+
+
+{% comment %}
 
 {% block title %}Article List{% endblock title %}
 
 {% block content %}
-<div class="container mt-4">
+<div class="container mt-4" >
     {% for article in article_list %}
         <!-- Card for each article -->
         <div class="card mb-4 shadow-sm">
@@ -28,8 +200,10 @@ VERSION: 1.0
                     <small class="text-muted">by {{ article.author }} &middot; {{ article.date }}</small>
                 </div>
                 <div>
-                    <a href="{% url 'article_edit' article.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
-                    <a href="{% url 'article_delete' article.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                    {% if request.user == article.author %}
+                        <a href="{% url 'article_edit' article.pk %}" class="btn btn-sm btn-outline-primary">Edit</a>
+                        <a href="{% url 'article_delete' article.pk %}" class="btn btn-sm btn-outline-danger">Delete</a>
+                    {% endif %}
                 </div>
             </div>
             <div class="card-body">
@@ -39,6 +213,7 @@ VERSION: 1.0
                 <p>{{ article.body }}</p>
             </div>
             <div class="card-footer bg-light">
+                <ion-icon name="chatbubbles-outline"></ion-icon>
                 <h6 class="mb-3">Comments:</h6>
                 {% for comment in article.comment_set.all %}
                     <div class="mb-2">
@@ -61,5 +236,6 @@ VERSION: 1.0
     {% endfor %}
 </div>
 {% endblock content %}
+{% endcomment %}
 
     

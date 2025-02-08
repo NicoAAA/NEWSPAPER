@@ -1,0 +1,455 @@
+/* ----- Contenedor General ----- */
+.custom-container {
+    display: flex;
+    flex-direction: column; /* Apilar los elementos verticalmente */
+    align-items: center; /* Centrar horizontalmente */
+    justify-content: center; /* Centrar verticalmente */
+    padding: 20px;
+}
+
+.custom-container h1{
+    font-family: "English Towne", serif; /* Fuente de letra */
+    font-size: 40px; /* Tamaño de la fuente */
+    text-wrap: nowrap; /* No permite que el texto se desborde */
+    color: var(--color-texto);
+    padding: 30px;
+}
+
+/* ----- Estilos del Post ----- */
+.post-container {
+    width: 100%;
+    max-width: 800px;
+    background-color: var(--color-barra-lateral);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: var(--color-texto);
+    border: 1px solid var(--color-linea);
+    width: 506px; 
+    max-height: 600px; /* Altura máxima para evitar posts demasiado largos */
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+    position: relative; /* Importante para posicionar el overlay */
+    overflow: hidden;
+    flex-direction: column; /* Apilar contenido de cada post */
+}
+.card-body.publicacion {
+    max-height: 320px; /* Control de altura del texto */
+    overflow: hidden; /* Evita desbordamiento */
+    text-overflow: ellipsis;
+    white-space: normal;
+    word-wrap: break-word;
+}
+
+/* Overlay que cubre todo el contenedor */
+.custom-overlay-link {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    text-decoration: none;
+    /* Opcional: si deseas que no se vea, no coloques background */
+}
+
+/* Contenedor del contenido con mayor z-index */
+.post-content {
+    position: relative;
+    z-index: 2;
+}
+
+/* ----- Estilos del Header y Perfil ----- */
+.perfil-container {
+    background-color: var(--color-card-header);
+    color: var(--color-texto);
+    border-bottom: 1px solid var(--color-linea);
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    justify-content: space-between;
+}
+
+/* Clases personalizadas para display y espaciado */
+.custom-d-flex {
+    display: flex;
+}
+.custom-align-items-center {
+    align-items: center;
+}
+.custom-ms-2 {
+    margin-left: 0.5rem;
+}
+
+/* ----- Imagen y Post ----- */
+.post-image {
+    width: 100%; /* La imagen ocupa todo el ancho del post */
+    max-height: 280px; /* Altura máxima similar a la de Twitter */
+    overflow: hidden; /* Evita desbordamiento */
+    display: flex; /* Asegura que la imagen se alinee correctamente */
+    justify-content: center;
+    align-items: center;
+}
+.post-image img {
+    width: 100%; /* Se ajusta al ancho del contenedor */
+    height: auto; /* Mantiene la proporción original */
+    max-height: 280px; /* Limita la altura para evitar deformaciones */
+    object-fit: cover; /* Recorta la imagen si es necesario, sin deformarla */
+    border-radius: 10px; /* Coincide con el contenedor */
+}
+
+/* ----- Botones de Interacción (Nuevos nombres) ----- */
+/* Contenedor del menú */
+.menu-container {
+    position: relative;
+    display: inline-block;
+    margin-left: auto;
+}
+
+/* Botón de los tres puntos */
+.menu-toggle {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 5px;
+    font-size: 18px;
+    color: var(--color-texto);
+    display: flex;
+    align-items: center;
+    
+}
+
+/* Menú desplegable oculto por defecto */
+.menu-dropdown {
+    display: none;
+    position: absolute;
+    right: 0;
+    top: 100%;
+    background-color: var(--color-card-comentarios);
+    border: 1px solid var(--color-linea);
+    border-radius: 5px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    min-width: 120px;
+    z-index: 10;
+}
+
+/* Estilos de los enlaces dentro del menú */
+.menu-dropdown a {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    padding: 8px 10px;
+    text-decoration: none;
+    color: var(--color-texto);
+    transition: background 0.2s;
+}
+
+.menu-dropdown a:hover {
+    background-color: var(--color-menu-hover);
+    color: var(--color-menu-hover-texto);
+    border-radius: 5px;
+}
+
+/* Mostrar el menú cuando esté activo */
+.menu-container.active .menu-dropdown {
+    display: block;
+}
+
+
+/* ----- Comentarios ----- */
+.comentarios-container {
+    background-color: var(--color-card-comentarios);
+    color: var(--color-texto);
+    border-top: 1px solid var(--color-linea);
+}
+.custom-comment-toggle {
+    margin-top: 5px;
+    margin-left: 5px;
+    height: 40px;
+    width: 100%;
+    background-color: transparent;
+    border: none;
+    color: var(--color-linea);
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 8px;
+    padding: 0 10px;
+}
+.comments-section {
+    display: none; /* Inicialmente oculto */
+    padding: 10px;
+    transition: top 0.3s ease-in-out;
+    max-height: 300px; /* Ajusta según sea necesario */
+    display: flex;
+    flex-direction: column;
+}
+
+/* Lista de comentarios con scroll */
+.comment-list {
+    flex-grow: 1;
+    max-height: 200px; /* Ajusta según el diseño */
+    overflow-y: auto;
+    padding-right: 5px; /* Espacio para el scrollbar */
+}
+
+/* Scrollbar personalizado */
+.comment-list::-webkit-scrollbar {
+    width: 5px;
+}
+
+.comment-list::-webkit-scrollbar-thumb {
+    background-color: var(--color-scroll);
+    border-radius: 10px;
+}
+
+.comment-list::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-scroll-hover);
+}
+
+.comment {
+    background: var(--color-menu-hover);
+    padding: 5px;
+    border-radius: 5px;
+    color: var(--color-menu-hover-texto);
+}
+
+/* ----- Input y Formulario de Comentarios ----- */
+
+/* Formulario fijo en la parte inferior */
+.comments-section form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    padding-top: 10px;
+    border-top: 1px solid var(--color-linea);
+    background-color: var(--color-card-comentarios); /* Fondo igual al contenedor */
+}
+
+.custom-form-control {
+    flex: 1;
+    padding: 10px;
+    border: 1px solid var(--color-linea);
+    border-radius: 5px;
+    background-color: var(--color-serch-input);
+    color: var(--color-texto);
+}
+.comments-section form {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+.add-comment {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+.add-comment:hover {
+    background-color: var(--color-menu-hover);
+    color: var(--color-menu-hover-texto);
+}
+
+
+
+/* Estilos generales del post */
+/* .post-container {
+    background-color: var(--color-barra-lateral);
+    color: var(--color-texto);
+    border: 1px solid var(--color-linea);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    border-top-left-radius: 30px;
+    border-top-right-radius: 30px;
+} */
+
+
+/* .perfil-container {
+    background-color: var(--color-card-header);
+    color: var(--color-texto); 
+    border-bottom: 1px solid var(--color-linea); 
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+}
+.comentarios-container {
+    background-color: var(--color-card-header);
+    color: var(--color-texto); 
+    border-top: 1px solid var(--color-linea);
+        
+} */
+
+
+/* Foto de perfil */
+.profile-pic {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    border: 2px solid var(--color-linea);
+}
+
+.foto-comentario{
+    width: 30px;
+    height: 30px;
+    border-radius: 50%;
+    border: 2px solid var(--color-linea);
+}
+
+/* Imagen del post con fondo adaptable */
+.post-image {
+    width: 100%;
+    height: 1080px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background-color: var(--color-de-fondo);
+}
+
+.post-image img {
+    max-width: 100%;
+    max-height: 100%;
+    object-fit: contain;
+}
+
+/* Contenedor de la publicación: posicion relativa para que el overlay se ubique respecto a él */
+
+
+/* Enlace overlay que cubre todo el contenedor y redirige al hacer click */
+.custom-overlay-link-publicacion {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 1;
+    text-decoration: none;
+    /* Opcional: puedes ajustar el cursor */
+    cursor: pointer;
+}
+
+/* Contenido real de la publicación */
+.publicacion {
+    white-space: normal; /* Permite saltos de línea */
+    word-wrap: break-word;
+    position: relative;
+    z-index: 2; /* Asegura que el contenido esté por encima del overlay */
+}
+
+/* Botones de interacción */
+
+
+.btn {
+    padding: 8px 12px;
+    border: none;
+    cursor: pointer;
+    border-radius: 5px;
+    transition: background 0.3s ease, color 0.3s ease;
+}
+
+.btn-outline-primary {
+    background-color: transparent;
+    color: var(--color-boton);
+    border: 1px solid var(--color-boton);
+}
+
+.btn-outline-primary:hover {
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+}
+
+.btn-outline-danger {
+    background-color: transparent;
+    color: red;
+    border: 1px solid red;
+}
+
+.btn-outline-danger:hover {
+    background-color: red;
+    color: white;
+}
+
+.comentarios-container ion-icon {
+    background-color: transparent;
+    color: var(--color-linea);
+    height: 30px;
+    width: 30px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+
+
+
+/* Comentarios */
+.comment-toggle{
+    margin-top: 5px;
+    margin-left: 5px;
+    height: 40px;
+    width: 100%;
+    background-color: transparent;
+    border-color: transparent;
+
+    color: var(--color-linea);
+    display: flex;
+    align-items: center; /* Centra verticalmente */
+    justify-content: flex-start; /* Alinea el contenido a la izquierda */
+    gap: 8px; /* Espacio entre el icono y el texto */
+    padding: 0 10px; /* Ajuste del espacio interior */
+    
+
+}
+.comments-section {
+    display: none;
+    padding: 10px;
+    transition: top 0.3s ease-in-out;
+}
+
+.comment {
+    background: var(--color-menu-hover);
+    padding: 5px;
+    border-radius: 5px;
+    color: var(--color-menu-hover-texto);
+}
+
+/* Input de comentarios */
+
+
+/* Contenedor del formulario */
+.comments-section form {
+    display: flex;
+    align-items: center; /* Alinea el input y el botón en la misma línea */
+    gap: 8px; /* Espacio entre el input y el botón */
+}
+
+/* Estiliza el input */
+.new-comment {
+    flex: 1; /* Ocupa todo el espacio disponible */
+    padding: 10px;
+    border: 1px solid var(--color-linea);
+    border-radius: 5px;
+    background-color: var(--color-serch-input);
+    color: var(--color-texto);
+}
+
+/* Estiliza el botón */
+.add-comment {
+    padding: 10px 15px;
+    border: none;
+    border-radius: 5px;
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+}
+
+/* Cambiar color al pasar el mouse */
+.add-comment:hover {
+    background-color: var(--color-menu-hover);
+    color: var(--color-menu-hover-texto);
+}
+
