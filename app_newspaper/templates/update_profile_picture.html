@@ -1,12 +1,36 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="container mt-4">
-    <h2>Actualizar foto de perfil</h2>
+<div class="container">
+    <div class="actualizar-container mt-4">
+        <h2 class="text-center">A c t u a l i z a r</h2>
+        <div class="profile-form-container">
+            <img src="{{ profile.profile_picture.url }}" alt="Foto de perfil" class="mb-3">
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %}
+                <!-- Oculta el input file -->
+                <input type="file" id="id_profile_picture" name="profile_picture" style="display: none;">
+                <!-- Etiqueta que actúa como botón personalizado -->
+                <label for="id_profile_picture" class="boton-cargar-imagen">
+                    <ion-icon name="cloud-upload-outline"></ion-icon>
+                </label>
+                <button type="submit" class="boton-guardar-img"> Guardar cambios
+                </button>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
+
+
+
+
+{% comment %} {% block content %}
+<div class="profile-form-container">
     <form method="post" enctype="multipart/form-data">
         {% csrf_token %}
         {{ form.as_p }}
         <button type="submit" class="btn btn-primary">Guardar cambios</button>
     </form>
 </div>
-{% endblock %}
+{% endblock %} {% endcomment %}

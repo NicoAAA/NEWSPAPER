@@ -62,3 +62,12 @@ class ProfileForm(forms.ModelForm):
     class Meta:
         model = Profile
         fields = ['profile_picture']
+        labels = {
+            'profile_picture': 'Foto de perfil',  # Cambia el texto de la etiqueta a español.
+        }
+        widgets = {
+            'profile_picture': forms.ClearableFileInput(attrs={
+                'class': 'form-control-file mi-clase-personalizada',  # Aquí puedes agregar clases CSS.
+                # Puedes agregar otros atributos si lo deseas.
+            }),
+        }

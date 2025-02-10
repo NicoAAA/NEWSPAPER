@@ -30,12 +30,35 @@ menu.addEventListener("click", () => {
     }
 });
 
+// Al cargar el DOM, aplica el modo oscuro si estaba activo
+document.addEventListener("DOMContentLoaded", () => {
+    if (localStorage.getItem("dark-mode") === "true") {
+      document.documentElement.classList.add("dark-mode");
+      palanca.classList.add("activo");
+      circulo.classList.add("prendido");
+    } else {
+      document.documentElement.classList.remove("dark-mode");
+      palanca.classList.remove("activo");
+      circulo.classList.remove("prendido");
+    }
+  });
+
+// Evento para alternar el modo oscuro
 palanca.addEventListener("click", () => {
-    let body = document.body;
-    body.classList.toggle("dark-mode");
-    palanca.classList.toggle("activo");
-    circulo.classList.toggle("prendido");
-});
+    // Alterna la clase en el elemento <html>
+    document.documentElement.classList.toggle("dark-mode");
+  
+    // Actualiza el estado en localStorage y ajusta las clases de los controles visuales
+    if (document.documentElement.classList.contains("dark-mode")) {
+      localStorage.setItem("dark-mode", "true");
+      palanca.classList.add("activo");
+      circulo.classList.add("prendido");
+    } else {
+      localStorage.setItem("dark-mode", "false");
+      palanca.classList.remove("activo");
+      circulo.classList.remove("prendido");
+    }
+  });
 
 cloud.addEventListener("click", () => {
     barralateral.classList.toggle("mini-barra-lateral");

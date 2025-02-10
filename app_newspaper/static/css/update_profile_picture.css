@@ -1,0 +1,106 @@
+/* Estilo del contenedor */
+.actualizar-container h2{
+    color: var(--color-texto);
+    font-family: "English Towne", serif;
+    font-size: 40px;
+    margin-bottom: 15px;
+    width: 100%;
+    height: 100%;
+}
+
+.mi-clase-personalizada {
+    /* Ejemplo de estilos */
+    border: 1px solid #ccc;
+    padding: 5px;
+    border-radius: 5px;
+}
+
+.mi-boton-personalizado {
+    display: inline-flex;
+    align-items: center;
+    gap: 5px;
+    /* Otros estilos personalizados */
+}
+
+.profile-form-container {
+    width: 100%;              /* Ocupa el ancho completo de su contenedor */
+    max-width: 400px;         /* Máximo ancho de la tarjeta */
+    margin: 0 auto;           /* Centrado horizontal */
+    margin: auto;
+    padding: 20px;
+    background-color: var(--color-barra-lateral);
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    border-radius: 8px;
+    color: var(--color-texto);
+}
+
+.profile-form-container img{
+    display: block;
+    margin: 0 auto;
+    width: 150px;
+    height: 150px;
+    object-fit: cover;
+    border-radius: 30%;
+    border: var(--color-linea) 2px solid; 
+}
+.profile-form-container ion-icon{
+    color: var(--color-barra-lateral);
+    width: 50px; /* Ancho */
+    height: 20px;
+    font-size: 20px; /* Tamaño de la fuente */
+    margin: 5px;
+    
+
+}
+.boton-cargar-imagen{
+    border-radius: 10%;
+    display: inline-flex;
+    background-color: var(--color-boton);
+    padding: 4px;
+}
+
+.boton-guardar-img {
+    display: inline-flex; /* Permite alinear icono y texto */
+    align-items: center;           /* Centra verticalmente */
+    gap: 5px;                      /* Espacio entre icono y texto */
+    padding: 3px 20px;          /* Espaciado interno */
+    background-color: var(--color-boton-verdadero);
+    border-radius: 10%;            /* Mismo radio de borde que el otro botón */
+    cursor: pointer;
+    color: var(--color-boton-texto)
+}
+
+.letra-boton-verdadero{
+    padding-left: 10px;
+    padding-top: 10px;
+}
+/* Estilo para el ion-icon dentro del botón */
+.boton-guardar-img ion-icon {
+    color: var(--color-boton); /* Usamos el mismo color que en el otro botón */
+    width: 50px;    /* Ajusta según necesites */
+    height: 20px;   /* Ajusta según necesites */
+    font-size: 20px;
+    margin: 5px;    /* Asegura un espaciado similar */
+
+}
+
+/* Imagen de vista previa */
+.preview-img {
+    width: 120px;
+    height: 120px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 15px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: opacity 0.3s ease-in-out;
+}
+
+/* Botón de guardar */
+#save-btn {
+    transition: background 0.3s ease-in-out, transform 0.2s;
+}
+
+#save-btn:hover {
+    background: #007bff;
+    transform: scale(1.05);
+}

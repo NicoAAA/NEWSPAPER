@@ -34,6 +34,7 @@
     --color-serch-icon-x-hover: rgba(255,255,255);
     --color-card-header: rgba(249, 246, 246, 0.929);
     --color-card-comentarios: rgba(255, 255, 255, 0.93);
+    --color-boton-verdadero: rgb(10, 198, 98);
 }
 
 /* Modo Oscuro */
@@ -62,6 +63,7 @@
     --color-card-header: rgba(20, 19, 19, 0.77);
     --color-card-comentarios: rgba(2, 2, 2, 0.655);
 
+    --color-boton-verdadero: rgb(23, 121, 69);
 }
     
 *{
@@ -74,6 +76,7 @@
 
 /* Estilo para el cuerpo de la página */
 body{
+
     height: 100%; /* Altura de la ventana gráfica */
     width:100%; /* Ancho completo */
     
@@ -388,11 +391,15 @@ body{
 
 /* Estilo para el contenido principal */
 main{
+    
     margin-left: 270px; /* Margen izquierdo */
     padding: 20px; /* Espaciado interno */
     transition: margin-left 0.5s ease; /* Transición */
     position: relative;
     background-color: var(--color-de-fondo);
+    min-height: 100vh;              /* Al menos la altura del viewport */
+    box-sizing: border-box;
+    
 
 }
 
@@ -408,6 +415,7 @@ main.min-main{
 /* Contenedor del buscador */
 
 .search-container{
+    
     position: absolute;
     width: 100%;
     height: 50px;
