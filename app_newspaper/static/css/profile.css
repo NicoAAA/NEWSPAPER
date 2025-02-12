@@ -1,0 +1,43 @@
+.custom-container-profile {
+    display: flex;
+    flex-direction: column; /* Alinea los elementos verticalmente */
+    align-items: center; /* Centra horizontalmente */
+    justify-content: center; /* Centra verticalmente si el contenedor tiene altura suficiente */
+    min-height: 100vh; /* Hace que el contenedor ocupe toda la altura de la pantalla */
+    padding: 20px;
+}
+
+.profile-content-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;  /* Centra horizontalmente */
+    justify-content: center; /* Centra verticalmente si es necesario */
+    width: 100%;
+    max-width: 800px; /* Ajusta el tamaño máximo según tu diseño */
+    margin: 0 auto; /* Centrar el contenedor */
+    padding: 20px;
+}
+.post-container-profile {
+    width: 100%;
+    max-width: 800px; /* Limita el tamaño de los posts */
+    background-color: var(--color-barra-lateral);
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    color: var(--color-texto);
+    border: 1px solid var(--color-linea);
+    border-radius: 10px;
+    padding: 15px;
+    margin-bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+}
+.content-wrapper {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    flex-grow: 1; /* Permite que crezca y empuje el contenido hacia el centro */
+    width: 100%;
+}
+

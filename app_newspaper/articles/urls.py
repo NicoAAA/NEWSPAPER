@@ -16,10 +16,12 @@ from .views import (
       ArticleDeleteView,
       ArticleCreateView,
       CommentUpdateView,
+      ArticleListCommentView,
       article_search,
 )
 
 
+# Definimos la lista de URLs de la aplicación articles.
 urlpatterns = [
     path ("<int:pk>/" , ArticleDetailView.as_view(), name="article_detail"
           ),
@@ -34,6 +36,7 @@ urlpatterns = [
     name='article_list'
          ),
     path('comment/<int:pk>/edit/', CommentUpdateView.as_view(), name='comment_edit'),
+    path('article-comment/', ArticleListCommentView.as_view(), name='article_comment'),
     path('search/', article_search, name='article_search'),
     
 ]

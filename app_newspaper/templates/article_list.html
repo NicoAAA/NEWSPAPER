@@ -17,9 +17,6 @@ VERSION: 1.0
 <!--  templates\article_list.html -->
 {% block title %}Post{% endblock title %}
 
-
-
-
 {% block content %}
 <div class="custom-container mt-4">
     <h1>A r t i c l e s</h1>
@@ -79,7 +76,7 @@ VERSION: 1.0
                 <div class="card-body  publicacion" >
                     <a href="{% url 'article_detail' article.pk %}" class="custom-overlay-link-publicacion"></a>
                         
-                            <h5 class="mb-0">{{ article.title }}</h5>
+                            <h5 class="mb-0" style="text-transform: uppercase;">{{ article.title }}</h5>
                             <p>{{ article.body }}</p>
                         
                 </div>
@@ -95,17 +92,44 @@ VERSION: 1.0
                 <div class="comments-section">
                     <div class="comment-list">
                         {% for comment in article.comment_set.all %}
-                            <div class="mb-2">
+                            <div class="mb-4">
                                 <img src="{{ comment.author.profile.profile_picture.url }}" alt="Foto de perfil" class="foto-comentario">
-                                <strong>{{ comment.author }}</strong> &middot; 
+                                <a href="{% url 'profile' username=comment.author.username %}" style="text-decoration: none; color: inherit;">
+                                <strong>{{ comment.author }}</strong> &middot;
+                                </a>
                                 <small class="text-muted">{{ comment.date_posted|default:"Just now" }}</small>
+                                {% if request.user == comment.author %}
+                                    <div class="menu-container float-end">
+                                        <!-- Botón de opciones -->
+                                        <button class="menu-toggle">
+                                            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                                        </button>
+                                
+                                        <!-- Menú desplegable -->
+                                        <div class="menu-dropdown">
+                                            <a href="{% url 'comment_edit' comment.pk %}"><ion-icon name="create-outline"></ion-icon> Editar</a>
+                                        </div>
+                                    </div>
+                                {% else %}
+                                    <div class="menu-container float-end">
+                                        <!-- Botón de opciones -->
+                                        <button class="menu-toggle">
+                                            <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                                        </button>
+                                
+                                        <!-- Menú desplegable -->
+                                        <div class="menu-dropdown">
+                                            <a class="btn danger"><ion-icon name="alert-circle-outline"></ion-icon></ion-icon>Reportar</a>
+                                        </div>
+                                    </div>
+                                {% endif %}
                                 <p class="mb-0">{{ comment }}</p>
                             </div>
                         {% empty %}
                             <p class="text-muted">No comments yet. Be the first to comment!</p>
                         {% endfor %}
                     </div>
-                    <form method="post" action="">
+                    <form method="post" action="{% url 'article_comment' %}">
                         {% csrf_token %}
                         {{ form|crispy }}
                         <input type="hidden" name="article_id" value="{{ article.id }}">

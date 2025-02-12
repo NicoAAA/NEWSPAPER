@@ -19,6 +19,8 @@ VERSION: 1.0
         <link rel="stylesheet" href="{% static 'css/base.css' %}">
         <link rel="stylesheet" href="{% static 'css/article_list.css' %}">
         <link rel="stylesheet" href="{% static 'css/update_profile_picture.css' %}">
+        <link rel="stylesheet" href="{% static 'css/article_edit.css' %}">
+        <link rel="stylesheet" href="{% static 'css/profile.css' %}">
         <title>{% block title %}Newspaper{% endblock title%}</title>
         <script>
             // Verifica si en localStorage está guardado que el modo oscuro está activo
@@ -156,14 +158,14 @@ VERSION: 1.0
                         </div>
                     <a>
                 {% else %}
-                    <button class="boton" href="{% url 'login' %}">
+                    <a class="boton" href="{% url 'login' %}">
                         <ion-icon name="log-in-outline"></ion-icon>
-                        <span>Log In</span>
-                    </button>
-                    <button class="boton" href="{% url 'signup' %}">
+                        <span href="{% url 'login' %}">Log In</span>
+                    </a>
+                    <a class="boton" href="{% url 'signup' %}">
                         <ion-icon name="person-add-outline"></ion-icon>
-                        <span>Sign Up</span>
-                    </button>
+                        <span href="{% url 'signup' %}">Sign Up</a></span>
+                    </a>
                 {% endif %}
             </div>
         </div>

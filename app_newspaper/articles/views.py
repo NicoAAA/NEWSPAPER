@@ -10,7 +10,7 @@ VERSION: 1.0
 '''
 
 from django.http import JsonResponse
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.mixins import LoginRequiredMixin, UserPassesTestMixin
 from django.views import View
 from django.views.generic import ListView, DetailView, FormView
@@ -39,7 +39,7 @@ class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class CommentGet(LoginRequiredMixin, DetailView):
     model = Article
-    template_name= "article_detail.html"
+    template_name= "article_list.html"
     
     def get_context_data(self, **kwargs):
         context= super().get_context_data(**kwargs)
@@ -141,7 +141,23 @@ class ArticleCreateView(LoginRequiredMixin,CreateView):
         return super().form_valid(form)
 
 
-
+class ArticleListCommentView(LoginRequiredMixin, View):
+    def post(self, request, *args, **kwargs):
+        form = CommentForm(request.POST)
+        # Obtenemos el id del artículo desde el campo oculto
+        article_id = request.POST.get('article_id')
+        article = get_object_or_404(Article, id=article_id)
+        
+        if form.is_valid():
+            comment = form.save(commit=False)
+            comment.article = article
+            comment.author = request.user
+            comment.save()
+            # Redirigimos a la lista de artículos (o a la URL que prefieras)
+            return redirect('article_list')
+        else:
+            # En caso de error, podrías redirigir o re-renderizar la lista con errores
+            return redirect('article_list')
 
 
 

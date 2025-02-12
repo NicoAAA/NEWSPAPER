@@ -40,8 +40,8 @@
 /* Modo Oscuro */
 .dark-mode{
 
-    --color-de-fondo: rgba(30, 31, 34);
-    --color-de-contenido: rgb(30, 31, 34);
+    --color-de-fondo: rgb(19, 20, 21);
+    --color-de-contenido: rgb(19, 20, 21);
     --color-barra-lateral: rgb(0,0,0);
 
     --color-texto: rgb(255,255,255);
@@ -130,6 +130,7 @@ body{
     opacity: 1; /* Opacidad */
     text-wrap: nowrap; /* No permite que el texto se desborde */
     transition: opacity 0.5s ease,width 0.5s ease; /* Transiciones */
+    
 }
 
 /* Estilo para los spans ocultos */

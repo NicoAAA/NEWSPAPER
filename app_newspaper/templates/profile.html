@@ -2,38 +2,126 @@
 
 {% block content %}
 <div class="container mt-4">
-    <div class="card shadow-sm">
+    <div class="card shadow-sm content-wrapper>
         <div class="card-body text-center">
             <!-- Mostrar la foto con dimensiones cuadradas -->
-            <img src="{{ profile.profile_picture.url }}" alt="Foto de perfil" style="width: 150px; height: 150px; object-fit: cover;border-radius: 30%;" class="mb-3">
+            <img src="{{ profile.profile_picture.url }}" alt="Foto de perfil" style="width: 150px; height: 150px; object-fit: cover;border-radius: 30%; border:var(--color-linea) 5px solid" class="mb-3">
             <h3>{{ profile.user.username }}</h3>
 
             <!-- Enlace para actualizar la foto si el usuario es el propietario del perfil -->
             {% if request.user == profile.user %}
-                <a class="btn btn-secondary mb-3" href="{% url 'password_change' %}">Change Password</a></li>
+                <a class="btn btn-warning mb-3" href="{% url 'password_change' %}">Change Password</a></li>
                 <a href="{% url 'update_profile_picture' %}" class="btn btn-secondary mb-3">Actualizar foto de perfil</a>
-                <a class="btn btn-secondary mb-3" href="{% url 'logout' %}">Log Out</a>
+                <a class="btn btn-danger mb-3" href="{% url 'logout' %}">Log Out</a>
             {% endif %}
 
         </div>
     </div>
 
-    <h4 class="mt-4">Publicaciones de {{ profile.user.username }}</h4>
+    
+    <h4 class="mt-4" style="color: var(--color-texto);">Publicaciones de {{ profile.user.username }}</h4>
     {% for article in articles %}
-        <div class="card mb-4 shadow-sm">
-            <div class="card-header bg-light">
-                <h5 class="mb-0">{{ article.title }}</h5>
-                <small class="text-muted">{{ article.date }}</small>
-            </div>
-            <div class="card-body">
+        <div class="post-container" style="position: relative;">
+            <!-- Enlace superpuesto: este <a> cubre todo el contenedor -->
+            <a href="{% url 'article_detail' article.pk %}" class="custom-overlay-link"></a>
+            
+            <!-- Contenido visible e interactivo con z-index mayor -->
+            <div class="post-content">
+                <!-- Header: Foto de perfil y usuario -->
+                <div class="perfil-container custom-d-flex custom-align-items-center"> 
+                    <a href="{% url 'profile' username=article.author.username %}" >     
+                        <img src="{{ article.author.profile.profile_picture.url }}" alt="Foto de perfil" class="profile-pic">
+                    </a>
+                    <a href="{% url 'profile' username=article.author.username %}" style="text-decoration: none; color: inherit;">
+                        <strong class="custom-ms-2">{{ article.author.username }}</strong>
+                    </a>
+                    {% if request.user == article.author %}
+                        <div class="menu-container">
+                            <!-- Botón de opciones -->
+                            <button class="menu-toggle">
+                                <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                            </button>
+                    
+                            <!-- Menú desplegable -->
+                            <div class="menu-dropdown">
+                                <a href="{% url 'article_edit' article.pk %}"><ion-icon name="create-outline"></ion-icon> Editar</a>
+                                <a href="{% url 'article_delete' article.pk %}"><ion-icon name="trash-outline"></ion-icon> Eliminar</a>
+                            </div>
+                        </div>
+                    {% else %}
+                        <div class="menu-container">
+                            <!-- Botón de opciones -->
+                            <button class="menu-toggle">
+                                <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                            </button>
+                    
+                            <!-- Menú desplegable -->
+                            <div class="menu-dropdown">
+                                <a href="{% url 'profile' username=article.author.username %}"><ion-icon name="body-outline"></ion-icon></ion-icon> Autor</a>
+                                <a href="{% url 'article_detail' article.pk %}"><ion-icon name="bookmark-outline"></ion-icon> Detalle</a>
+                            </div>
+                        </div>
+                    {% endif %}
+                    
+                </div>
+
+                <!-- Imagen del post -->
                 {% if article.image %}
-                    <img src="{{ article.image.url }}" alt="{{ article.title }}" class="img-fluid mb-3">
+                    <div class="post-image">
+                        <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                    </div>
                 {% endif %}
-                <p>{{ article.body|truncatewords:50 }}</p>
-                <a href="{% url 'article_detail' article.pk %}" class="btn btn-sm btn-primary">Leer más</a>
-            </div>
+
+                <!-- Texto del post -->
+                <div class="card-body  publicacion" >
+                    <a href="{% url 'article_detail' article.pk %}" class="custom-overlay-link-publicacion"></a>
+                        
+                            <h5 class="mb-0">{{ article.title }}</h5>
+                            <p>{{ article.body }}</p>
+                        
+                </div>
+
+                <!-- Botones de interacciones -->
+                <div class="comentarios-container">
+                    <button class="custom-comment-toggle">
+                        <ion-icon name="chatbubbles-outline"></ion-icon> Comentarios
+                    </button>
+                </div>
+
+                <!-- Sección de comentarios -->
+                <div class="comments-section">
+                    <div class="comment-list">
+                        {% for comment in article.comment_set.all %}
+                            <div class="mb-2">
+                                <img src="{{ comment.author.profile.profile_picture.url }}" alt="Foto de perfil" class="foto-comentario">
+                                <strong>{{ comment.author }}</strong> &middot; 
+                                <small class="text-muted">{{ comment.date_posted|default:"Just now" }}</small>
+                                <p class="mb-0">{{ comment }}</p>
+                            </div>
+                        {% empty %}
+                            <p class="text-muted">No comments yet. Be the first to comment!</p>
+                        {% endfor %}
+                    </div>
+                    
+                </div>
+            </div><!-- /.post-content -->
         </div>
     {% endfor %}
+        
+            {% comment %} <div class="card mb-4 shadow-sm">
+                <div class="card-header bg-light">
+                    <h5 class="mb-0">{{ article.title }}</h5>
+                    <small class="text-muted">{{ article.date }}</small>
+                </div>
+                <div class="card-body">
+                    {% if article.image %}
+                        <img src="{{ article.image.url }}" alt="{{ article.title }}" class="img-fluid mb-3">
+                    {% endif %}
+                    <p>{{ article.body|truncatewords:50 }}</p>
+                    <a href="{% url 'article_detail' article.pk %}" class="btn btn-sm btn-primary">Leer más</a>
+                </div>
+            </div> {% endcomment %}
+        
 </div>
 {% endblock %}
 

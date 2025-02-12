@@ -1,0 +1,68 @@
+/* Contenedor principal para la página de edición */
+.edit-page {
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--color-de-contenido); /* Usamos la variable para el fondo del contenido */
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    color: var(--color-texto);
+    font-family: 'Helvetica Neue', Arial, sans-serif;
+  }
+  
+  /* Título */
+  .edit-page h1 {
+    text-align: center;
+    font-size: 2.5rem;
+    font-weight: 300;
+    margin-bottom: 1.5rem;
+    color: var(--color-texto);
+  }
+  
+  /* Estilo del formulario */
+  .edit-page form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  /* Estilo para inputs, selects y textarea generados por crispy */
+  .edit-page input,
+  .edit-page select,
+  .edit-page textarea {
+    width: 100%;
+    padding: 0.75rem 1rem;
+    font-size: 1rem;
+    border: 1px solid var(--color-linea);
+    border-radius: 5px;
+    background-color: var(--color-serch-input);
+    color: var(--color-texto);
+    transition: border-color 0.3s ease;
+  }
+  
+  /* Efecto focus en campos de formulario */
+  .edit-page input:focus,
+  .edit-page select:focus,
+  .edit-page textarea:focus {
+    outline: none;
+    border-color: var(--color-boton);
+  }
+  
+  /* Botón de submit personalizado */
+  .edit-page button.btn-update {
+    align-self: flex-end;
+    padding: 0.75rem 1.5rem;
+    font-size: 1rem;
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+  }
+  
+  /* Efecto hover para el botón de submit */
+  .edit-page button.btn-update:hover {
+    background-color: var(--color-boton-verdadero);
+  }
+  

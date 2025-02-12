@@ -17,10 +17,10 @@ VERSION: 1.0
 
 
 {% block content %}
-    <h1>Delete</h1>
+    <h1 style="color: var(--color-texto);">Delete</h1>
     <form action="" method="post">
         {% csrf_token %}
-        <p>Are you sure you want to delete <b>"{{ article.title }}"</b>?</p>
+        <p style="color: var(--color-texto);">Are you sure you want to delete <b>"{{ article.title }}"</b>?</p>
         <button class="btn btn-danger ml-2" type="submit">Confirm</button>
     </form>
 {% endblock content %}
