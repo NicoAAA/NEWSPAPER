@@ -1,0 +1,82 @@
+/* Contenedor principal para la página de Sign Up */
+.signup-container {
+    font-family: "Outfit", serif;
+    width: 90%;
+    max-width: 600px;
+    margin: 2rem auto;
+    padding: 2rem;
+    background-color: var(--color-de-contenido);
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 1s ease-in-out;
+    text-align: center;
+    color: var(--color-texto);
+  }
+  
+  /* Título */
+  .signup-container h2 {
+    margin-bottom: 1.5rem;
+    font-size: 2rem;
+    color: var(--color-texto);
+  }
+  
+  /* Formulario */
+  .signup-form {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+  }
+  
+  /* Campos del formulario */
+  .signup-form input[type="text"],
+  .signup-form input[type="password"],
+  .signup-form input[type="email"],
+  .signup-form textarea {
+    width: 100%;
+    padding: 0.75rem;
+    border: 1px solid var(--color-linea);
+    border-radius: 5px;
+    background-color: var(--color-serch-input);
+    color: black;
+    font-family: "Outfit", serif;
+    transition: border-color 0.3s ease;
+  }
+  
+  .signup-form input:focus,
+  .signup-form textarea:focus {
+    border-color: var(--color-boton);
+  }
+  
+  /* Botón de envío */
+  .submit-button {
+    display: inline-flex;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0.75rem;
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+    border: none;
+    border-radius: 5px;
+    font-size: 1rem;
+    cursor: pointer;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+  }
+  
+  .submit-button:hover {
+    background-color: var(--color-boton-verdadero);
+    transform: scale(1.02);
+  }
+  
+  /* Animación de entrada */
+  @keyframes fadeIn {
+    from {
+      opacity: 0;
+      transform: translateY(20px);
+    }
+    to {
+      opacity: 1;
+      transform: translateY(0);
+    }
+  }
+  

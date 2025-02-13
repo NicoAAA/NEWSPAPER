@@ -1,0 +1,141 @@
+/* Estilos generales */
+.article-entry {
+    background: var(--color-fondo);
+    padding: 20px;
+    border-radius: 10px;
+    box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+}
+
+.article-title {
+    color: var(--color-texto);
+    font-size: 28px;
+    font-weight: bold;
+}
+
+.article-meta {
+    color: var(--color-texto);
+    font-size: 14px;
+    margin-bottom: 15px;
+}
+
+.article-content {
+    color: var(--color-texto);
+    font-size: 18px;
+    line-height: 1.6;
+}
+
+.divider {
+    border: solid 2px var(--color-secundario);
+    margin: 20px 0;
+}
+
+/* Sección de comentarios */
+.comment-section-title {
+    color: var(--color-texto);
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.comment-list {
+    display: flex;
+    flex-direction: column;
+    gap: 10px;
+}
+
+.comment {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 10px;
+    border-radius: 8px;
+    transition: opacity 0.5s, transform 0.3s;
+    opacity: 0;
+    transform: translateY(10px);
+}
+
+.comment-author {
+    font-weight: bold;
+    color: var(--color-primario);
+}
+
+.comment-text {
+    color: var(--color-texto);
+}
+
+.edit-link {
+    color: var(--color-secundario);
+    font-size: 14px;
+    text-decoration: none;
+}
+
+.edit-link:hover {
+    text-decoration: underline;
+}
+
+.no-comments {
+    color: var(--color-secundario);
+    font-style: italic;
+}
+
+/* Formulario de comentarios */
+.comment-form {
+    background: rgba(255, 255, 255, 0.1);
+    padding: 15px;
+    border-radius: 10px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+    animation: fadeIn 0.5s ease-in-out;
+    color: var(--color-texto)
+}
+
+.comment-form textarea {
+    width: 100%;
+    padding: 10px;
+    border-radius: 5px;
+    border: 1px solid var(--color-secundario);
+    background: rgba(255, 255, 255, 0.1);
+    color: var(--color-texto);
+    resize: none;
+}
+
+.comment-form textarea:focus {
+    outline: none;
+    border-color: var(--color-primario);
+    box-shadow: 0px 0px 5px var(--color-primario);
+}
+
+.comment-form button {
+    transition: all 0.3s ease;
+}
+
+.comment-form button:disabled {
+    background: var(--color-secundario);
+    cursor: not-allowed;
+}
+
+/* Enlace de regreso */
+.back-link {
+    color: var(--color-texto);
+    text-align: center;
+    margin-top: 15px;
+}
+
+.back-link a {
+    color: var(--color-primario);
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.back-link a:hover {
+    text-decoration: underline;
+}
+
+/* Animaciones */
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+        transform: translateY(-10px);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
