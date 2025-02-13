@@ -129,12 +129,12 @@ VERSION: 1.0
                             <p class="text-muted">No comments yet. Be the first to comment!</p>
                         {% endfor %}
                     </div>
-                    <form method="post" action="{% url 'article_comment' %}">
-                        {% csrf_token %}
-                        {{ form|crispy }}
-                        <input type="hidden" name="article_id" value="{{ article.id }}">
-                        <button type="submit" class="custom-btn custom-btn-primary add-comment">Post</button>
-                    </form>
+                    <a class="boton-comentario" href="{% url 'article_detail' article.pk %}">
+                        <ion-icon name="pencil-outline"></ion-icon>
+                        <span>comentar</span>
+                    </a>
+
+                    
                 </div>
             </div><!-- /.post-content -->
         </div><!-- /.post-container -->

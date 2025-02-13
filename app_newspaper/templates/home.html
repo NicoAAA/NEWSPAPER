@@ -1,38 +1,91 @@
-{% extends "base.html" %}
-
-{% comment %} 
-
-SENA CBA CENTRO DE BIOTECNOLOGIA AGROPECUARIA
-PROGRAMACION DE SOFTWARE
-
-FICHA: 2877795
-AUTOR: NICOLAS ANDRES ACOSTA HIGUERA
-PROYECTO: NEWSPAPER (templates/home.html)
-FECHA: 29/09/2024
-VERSION: 1.0
-
-{% endcomment %}
+{% extends "base.html" %} {% load static %} {% comment %} SENA CBA CENTRO DE
+BIOTECNOLOGIA AGROPECUARIA PROGRAMACION DE SOFTWARE FICHA: 2877795 AUTOR:
+NICOLAS ANDRES ACOSTA HIGUERA PROYECTO: NEWSPAPER (templates/home.html) FECHA:
+29/09/2024 VERSION: 1.0 {% endcomment %}
 
 <!--  templates/home.html -->
 
+{# Se extiende de base.html #} {% block title %}HOME{% endblock title %} {# Se
+define el titulo de la pagina #} {% block content %}
 
-
-{#  Se extiende de base.html #}
-{% block title %}HOME{% endblock title %}
-
-{#  Se define el titulo de la pagina #}
-{% block content %}
-   
-   {% if user.is_authenticated %}
-
-        Hi {{ user.username }}! You are {{ user.age }} years old.
-        <p><a href="{% url 'logout' %}">Log Out</a></p>
-    
+<div class="home">
+     <!-- Sección de Login / Información del Usuario -->
+  <section class="login-section">
+    {% if user.is_authenticated %}
+        <p class="espaciado-letras"">Hola  {{ user.username }}
     {% else %}
+        <p>No has iniciado sesión.</p>
+        <a href="{% url 'login' %}" class="boton">Iniciar Sesión</a> |
+        <a href="{% url 'signup' %}" class="boton">Registrarse</a>
+    {% endif %}
+    </section>
+  <!-- Sección Hero: Presentación principal con imagen e introducción -->
+  <section class="hero-section">
+    <div class="hero-text">
+      <h1>Bienvenido a Newspaper</h1>
+      <p>
+        Descubre una nueva forma de conectarte, compartir y explorar. En nuestra
+        red social podrás crear artículos, comentar, seguir a amigos y disfrutar
+        de contenido exclusivo.
+      </p>
+      <div class="hero-buttons">
+        <a href="{% url 'article_new' %}" class="boton">
+          <ion-icon name="rocket-outline"></ion-icon>
+          &nbsp;Comenzar
+        </a>
+        <a href="#about" class="boton">
+          <ion-icon name="information-circle-outline"></ion-icon>
+          &nbsp;Saber Más
+        </a>
+      </div>
+    </div>
+    <div class="hero-image">
+      <!-- Asegúrate de tener la imagen en la ruta indicada en tus archivos estáticos -->
+      <img src="{% static 'images/image.png' %}" alt="Conecta y comparte" />
+    </div>
+  </section>
 
-        <p>You are not logged in</p>
-        <a href="{% url 'login' %}">Log In</a>  |
-        <a href="{% url 'signup' %}">Sign Up</a>
-   {% endif %}
-    
+  <!-- Sección de Funcionalidades: Destaca lo que se puede hacer en la red social -->
+  <section class="features-section">
+    <h2>Descubre lo que puedes hacer</h2>
+    <div class="features-container">
+      <div class="feature-card">
+        <ion-icon name="chatbubble-ellipses-outline"></ion-icon>
+        <h3>Conversaciones en Tiempo Real</h3>
+        <p>Interactúa y comparte ideas con amigos y comunidades.</p>
+      </div>
+      <div class="feature-card">
+        <ion-icon name="images-outline"></ion-icon>
+        <h3>Publica tus Artículos</h3>
+        <p>Crea y comparte artículos, noticias y opiniones.</p>
+      </div>
+      <div class="feature-card">
+        <ion-icon name="people-outline"></ion-icon>
+        <h3>Únete a Comunidades</h3>
+        <p>
+          Forma parte de grupos y conecta con personas que comparten tus
+          intereses.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección Acerca de: Breve descripción de la red social -->
+  <section class="about-section" id="about">
+    <h2>Acerca de ewsPaper</h2>
+    <p>
+      En ewsPaper creemos en el poder de la información y la comunidad. Nuestra
+      plataforma te ofrece las herramientas necesarias para expresarte,
+      descubrir nuevos horizontes y conectar con personas de todo el mundo.
+      ¡Únete hoy y forma parte de esta emocionante experiencia digital!
+    </p>
+  </section>
+
+  <!-- Footer Sencillo -->
+  <footer class="footer">
+    <p>&copy; 2025 NEWSPAPER. All rights reserved.</p>
+  </footer>
+  
+</div>
+
 {% endblock content %}

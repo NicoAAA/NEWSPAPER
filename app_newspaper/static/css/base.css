@@ -82,6 +82,20 @@ body{
     
 }
 
+body::-webkit-scrollbar {
+    width: 5px;
+    background-color: var(--color-barra-lateral);
+}
+
+body::-webkit-scrollbar-thumb {
+    background-color: var(--color-texto);
+    border-radius: 10px;
+}
+
+body::-webkit-scrollbar-thumb:hover {
+    background-color: var(--color-scroll-hover);
+}
+
 /*----------> Barra lateral menú */
 
 /* Estilo para el botón del menú */

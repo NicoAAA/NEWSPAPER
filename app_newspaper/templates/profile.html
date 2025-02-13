@@ -1,7 +1,174 @@
 {% extends 'base.html' %}
 
+
+
+{% load static %}
+
+{% block title %}Perfil - ewsPaper{% endblock title %}
+
 {% block content %}
-<div class="container mt-4">
+<div class="profile">
+
+    <!-- Tarjeta de perfil: Banner, foto, nombre y acciones -->
+    <div class="profile-card">
+      <!-- Banner de fondo -->
+      <div class="profile-banner">
+        <!-- Imagen de banner (puede ser una imagen fija o personalizada) -->
+        <img src="{% static 'images/image.png' %}" alt="Banner de perfil" class="banner-img">
+      </div>
+      <!-- Información de perfil y foto centrada -->
+      <div class="profile-info">
+        <div class="profile-picture">
+            <img src="{{ profile.profile_picture.url }}" alt="Foto de perfil">
+        </div>
+        <h2 class="username">@{{ profile.user.username }}</h2>
+        <!-- Botones de acciones -->
+        {% if request.user == profile.user %}
+          <div class="profile-actions">
+            <a href="{% url 'logout' %}" class="boton">
+              <ion-icon name="log-out-outline"></ion-icon> Log Out
+            </a>
+            <a href="{% url 'password_change' %}" class="boton">
+              <ion-icon name="key-outline"></ion-icon> Change Password
+            </a>
+            <a href="{% url 'update_profile_picture' %}" class="boton">
+              <ion-icon name="camera-outline"></ion-icon> Actualizar Foto
+            </a>
+          </div>
+        {% endif %}
+      </div>
+    </div>
+  </section>
+
+  <!-- Sección de Publicaciones -->
+  <section class="profile-posts">
+    {% if request.user == profile.user %}
+      <h2 class="username">Mis Publicaciones</h2>
+    {% else %}
+      <h2 class="username">Publicaciones</h2>
+    {% endif %}
+      {% for article in articles %}
+        <div class="post-container" style="position: relative;">
+          <!-- Enlace superpuesto: este <a> cubre todo el contenedor -->
+          <a href="{% url 'article_detail' article.pk %}" class="custom-overlay-link"></a>
+          
+          <!-- Contenido visible e interactivo con z-index mayor -->
+          <div class="post-content">
+              <!-- Header: Foto de perfil y usuario -->
+              <div class="perfil-container custom-d-flex custom-align-items-center"> 
+                  <a href="{% url 'profile' username=article.author.username %}" >     
+                      <img src="{{ article.author.profile.profile_picture.url }}" alt="Foto de perfil" class="profile-pic">
+                  </a>
+                  <a href="{% url 'profile' username=article.author.username %}" style="text-decoration: none; color: inherit;">
+                      <strong class="custom-ms-2">{{ article.author.username }}</strong>
+                  </a>
+                  {% if request.user == article.author %}
+                      <div class="menu-container">
+                          <!-- Botón de opciones -->
+                          <button class="menu-toggle">
+                              <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                          </button>
+                  
+                          <!-- Menú desplegable -->
+                          <div class="menu-dropdown">
+                              <a href="{% url 'article_edit' article.pk %}"><ion-icon name="create-outline"></ion-icon> Editar</a>
+                              <a href="{% url 'article_delete' article.pk %}"><ion-icon name="trash-outline"></ion-icon> Eliminar</a>
+                          </div>
+                      </div>
+                  {% else %}
+                      <div class="menu-container">
+                          <!-- Botón de opciones -->
+                          <button class="menu-toggle">
+                              <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                          </button>
+                  
+                          <!-- Menú desplegable -->
+                          <div class="menu-dropdown">
+                              <a href="{% url 'profile' username=article.author.username %}"><ion-icon name="body-outline"></ion-icon></ion-icon> Autor</a>
+                              <a href="{% url 'article_detail' article.pk %}"><ion-icon name="bookmark-outline"></ion-icon> Detalle</a>
+                          </div>
+                      </div>
+                  {% endif %}
+                  
+              </div>
+
+              <!-- Imagen del post -->
+              {% if article.image %}
+                  <div class="post-image">
+                      <img src="{{ article.image.url }}" alt="{{ article.title }}">
+                  </div>
+              {% endif %}
+
+              <!-- Texto del post -->
+              <div class="card-body  publicacion" >
+                  <a href="{% url 'article_detail' article.pk %}" class="custom-overlay-link-publicacion"></a>
+                      
+                          <h5 class="mb-0" style="text-transform: uppercase;">{{ article.title }}</h5>
+                          <p>{{ article.body }}</p>
+                      
+              </div>
+
+              <!-- Botones de interacciones -->
+              <div class="comentarios-container">
+                  <button class="custom-comment-toggle">
+                      <ion-icon name="chatbubbles-outline"></ion-icon> Comentarios
+                  </button>
+              </div>
+
+              <!-- Sección de comentarios -->
+              <div class="comments-section">
+                  <div class="comment-list">
+                      {% for comment in article.comment_set.all %}
+                          <div class="mb-4">
+                              <img src="{{ comment.author.profile.profile_picture.url }}" alt="Foto de perfil" class="foto-comentario">
+                              <a href="{% url 'profile' username=comment.author.username %}" style="text-decoration: none; color: inherit;">
+                              <strong>{{ comment.author }}</strong> &middot;
+                              </a>
+                              <small class="text-muted">{{ comment.date_posted|default:"Just now" }}</small>
+                              {% if request.user == comment.author %}
+                                  <div class="menu-container float-end">
+                                      <!-- Botón de opciones -->
+                                      <button class="menu-toggle">
+                                          <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                                      </button>
+                              
+                                      <!-- Menú desplegable -->
+                                      <div class="menu-dropdown">
+                                          <a href="{% url 'comment_edit' comment.pk %}"><ion-icon name="create-outline"></ion-icon> Editar</a>
+                                      </div>
+                                  </div>
+                              {% else %}
+                                  <div class="menu-container float-end">
+                                      <!-- Botón de opciones -->
+                                      <button class="menu-toggle">
+                                          <ion-icon name="ellipsis-vertical-outline"></ion-icon>
+                                      </button>
+                              
+                                      <!-- Menú desplegable -->
+                                      <div class="menu-dropdown">
+                                          <a class="btn danger"><ion-icon name="alert-circle-outline"></ion-icon></ion-icon>Reportar</a>
+                                      </div>
+                                  </div>
+                              {% endif %}
+                              <p class="mb-0">{{ comment }}</p>
+                          </div>
+                      {% empty %}
+                          <p class="text-muted">No comments yet. Be the first to comment!</p>
+                      {% endfor %}
+                  </div>
+                  <a class="boton-comentario" href="{% url 'article_detail' article.pk %}">
+                      <ion-icon name="pencil-outline"></ion-icon>
+                      <span>comentar</span>
+                  </a>   
+              </div>
+          </div><!-- /.post-content -->
+        </div><!-- /.post-container -->
+      {% endfor %}
+  </section>
+</div>
+{% endblock content %}
+
+{% comment %} <div class="container mt-4">
     <div class="card shadow-sm content-wrapper>
         <div class="card-body text-center">
             <!-- Mostrar la foto con dimensiones cuadradas -->
@@ -105,8 +272,8 @@
                     
                 </div>
             </div><!-- /.post-content -->
-        </div>
-    {% endfor %}
+        </div> {% endcomment %}
+   
         
             {% comment %} <div class="card mb-4 shadow-sm">
                 <div class="card-header bg-light">
@@ -122,6 +289,6 @@
                 </div>
             </div> {% endcomment %}
         
-</div>
-{% endblock %}
+
+
 

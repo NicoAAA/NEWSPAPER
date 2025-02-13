@@ -1,43 +1,171 @@
-.custom-container-profile {
-    display: flex;
-    flex-direction: column; /* Alinea los elementos verticalmente */
-    align-items: center; /* Centra horizontalmente */
-    justify-content: center; /* Centra verticalmente si el contenedor tiene altura suficiente */
-    min-height: 100vh; /* Hace que el contenedor ocupe toda la altura de la pantalla */
-    padding: 20px;
-}
-
-.profile-content-container {
+/* Base para la página de perfil */
+.profile {
+    font-family: "Outfit", serif;
+    padding: 1rem;
+    background-color: var(--color-de-fondo);
     display: flex;
     flex-direction: column;
-    align-items: center;  /* Centra horizontalmente */
-    justify-content: center; /* Centra verticalmente si es necesario */
-    width: 100%;
-    max-width: 800px; /* Ajusta el tamaño máximo según tu diseño */
-    margin: 0 auto; /* Centrar el contenedor */
-    padding: 20px;
+    align-items: center;
+    text-align: center;
 }
-.post-container-profile {
-    width: 100%;
-    max-width: 800px; /* Limita el tamaño de los posts */
-    background-color: var(--color-barra-lateral);
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    color: var(--color-texto);
-    border: 1px solid var(--color-linea);
+
+/* Tarjeta de perfil (banner y datos) */
+.profile-card {
+    width: 90%;
+    max-width: 1200px;
+    margin: 0 auto;
+    background-color: var(--color-de-contenido);
     border-radius: 10px;
-    padding: 15px;
-    margin-bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-}
-.content-wrapper {
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    flex-grow: 1; /* Permite que crezca y empuje el contenido hacia el centro */
-    width: 100%;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.696);
+    overflow: hidden;
+    animation: fadeIn 0.8s ease-in;
 }
 
+/* Banner de fondo */
+.profile-banner {
+    width: 100%;
+    height: 300px;
+    overflow: hidden;
+    position: relative;
+}
+.banner-img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;       /* La imagen se recorta pero se mantiene centrada */
+    object-position: center;
+}
+
+/* Información del usuario */
+.profile-info {
+    position: relative;
+    padding: 2rem 1rem 1rem;
+    text-align: center;
+}
+.profile-picture {
+    width: 150px;
+    height: 150px;
+    margin: -75px auto 1rem;  /* Superpone la foto sobre el banner */
+    border: 5px solid var(--color-de-fondo);
+    border-radius: 50%;
+    overflow: hidden;
+    background-color: #fff;
+}
+.profile-picture img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+}
+
+/* Nombre de usuario */
+.username {
+    font-size: 2rem;
+    margin: 0.5rem 0;
+    color: var(--color-texto)
+}
+
+/* Botones de acciones */
+.profile-actions {
+    margin-top: 1rem;
+}
+.profile-actions a.boton {
+    display: inline-flex;
+    align-items: center;
+    margin: 0 0.5rem;
+    padding: 0.5rem 1rem;
+    border-radius: 5px;
+    text-decoration: none;
+    background-color: var(--color-boton);
+    color: var(--color-boton-texto);
+    transition: background-color 0.3s ease;
+}
+.profile-actions a.boton ion-icon {
+    margin-right: 0.5rem;
+    font-size: 1.2rem;
+}
+.profile-actions a.boton:hover {
+    background-color: var(--color-boton-verdadero);
+}
+
+/* Sección de posts */
+.posts-section {
+    width: 90%;
+    max-width: 800px;
+    margin: 2rem auto;
+    text-align: center;
+}
+.posts-section h2 {
+    margin-bottom: 1rem;
+    font-size: 1.8rem;
+}
+.posts-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    overflow-y: auto;
+    max-height: 500px;  /* Ajusta la altura máxima para scroll vertical */
+    padding-right: 1rem;
+}
+
+/* Tarjeta individual del post */
+.profile-posts {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    width: 100%;
+}
+.post-container {
+    width: 80%; /* Ajusta el ancho según necesites */
+    max-width: 600px; /* Evita que los posts sean demasiado anchos */
+    border-radius: 10px;
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.2);
+    margin-bottom: 15px;
+}
+
+.post-card {
+    background-color: var(--color-card-comentarios);
+    border: 1px solid var(--color-linea);
+    padding: 1rem;
+    border-radius: 5px;
+    text-align: left;
+    opacity: 0;
+    transform: translateY(20px);
+    transition: opacity 0.5s ease, transform 0.5s ease;
+}
+.post-card.visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+.post-card h3 {
+    margin: 0 0 0.5rem;
+}
+.post-card p {
+    margin: 0 0 0.5rem;
+    line-height: 1.5;
+}
+.post-date {
+    font-size: 0.8rem;
+    color: var(--color-texto-menu);
+}
+
+/* Animación general */
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+/* Responsividad */
+@media (max-width: 768px) {
+    .profile-banner {
+    height: 200px;
+    }
+    .profile-picture {
+    width: 120px;
+    height: 120px;
+    margin: -60px auto 1rem;
+    }
+    .username {
+    font-size: 1.6rem;
+    }
+}
+  
+  

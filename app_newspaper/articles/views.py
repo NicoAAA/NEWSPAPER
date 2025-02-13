@@ -30,7 +30,7 @@ from .models import Comment
 class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
     model = Comment
     fields = ['comment']  # Solo permitimos editar el texto del comentario
-    template_name = 'comment_edit.html'
+    template_name = 'comment_edit.html.html'
     success_url = reverse_lazy('article_list')  # Redirigir después de la edición
 
     def test_func(self):
@@ -39,7 +39,7 @@ class CommentUpdateView(LoginRequiredMixin, UserPassesTestMixin, UpdateView):
 
 class CommentGet(LoginRequiredMixin, DetailView):
     model = Article
-    template_name= "article_list.html"
+    template_name= "article_detail.html"
     
     def get_context_data(self, **kwargs):
         context= super().get_context_data(**kwargs)
